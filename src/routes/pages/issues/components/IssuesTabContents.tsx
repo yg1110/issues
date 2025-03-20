@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 
 import { GitHubIssue } from "../../../../schemas/github-issue";
+import IssueState from "../../../../shared/components/IssueState";
 import ListView, { ListItem } from "../../../../shared/components/ListView";
 
 type Props = {
   issues?: GitHubIssue[];
 };
+
 export default function IssuesTabContents({ issues }: Props) {
   const [items, setItems] = useState<ListItem[]>([]);
 
@@ -15,6 +17,7 @@ export default function IssuesTabContents({ issues }: Props) {
       title: issue.title,
       description: issue.user.login,
       link: issue.html_url,
+      icon: <IssueState state={issue.state} stateReason={issue.state_reason} />,
     }));
     setItems(items);
   }, [issues]);

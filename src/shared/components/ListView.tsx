@@ -1,9 +1,8 @@
-import IssueIcon from "../icons/IssueIcon";
-
 export interface ListItem {
   title: string;
   description: string;
   link: string;
+  icon?: React.ReactNode;
 }
 
 type Props = {
@@ -24,9 +23,7 @@ export default function ListView({ title, items }: Props) {
           href={item.link}
           className="flex items-start px-4 py-3 border-b border-gray-300 last:border-none hover:bg-gray-100 transition"
         >
-          <div className="mt-1">
-            <IssueIcon color="#1a7f37" />
-          </div>
+          {item.icon}
           <div className="ml-2">
             <h3 className="text-bold font-semibold hover:underline">
               {item.title}
