@@ -14,7 +14,7 @@ export default function TabList({ tabs }: Props) {
 
   return (
     <div className="relative">
-      <div className="border-b border-gray-300 px-[1rem]">
+      <div className="border-gray-300 px-[1rem] sticky top-[64px] bg-white z-1">
         <div className="flex justify-start gap-6 bg-bottom">
           {tabs.map((tab, index) => (
             <button
@@ -22,7 +22,7 @@ export default function TabList({ tabs }: Props) {
               className={`relative py-2 px-4 text-sm font-medium transition-all 
               ${
                 activeTab === index
-                  ? "text-gray-800 font-semibold after:absolute after:bottom-[-1px] after:left-0 after:w-full after:h-[3px] after:bg-[#f78166] after:rounded-t-md"
+                  ? "text-gray-800 font-semibold after:absolute after:bottom-[-1px] after:left-0 after:w-full after:h-[3px] after:bg-[#f78166] after:rounded-t-md after:z-1"
                   : "text-gray-600 hover:text-gray-800 cursor-pointer"
               }`}
               onClick={() => setActiveTab(index)}

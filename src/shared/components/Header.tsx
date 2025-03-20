@@ -1,17 +1,9 @@
-import { useRef } from "react";
-
-import useStickyDetection from "../hooks/useStickyDetection";
 import GithubIcon from "../icons/GithubIcon";
 import SlashIcon from "../icons/SlashIcon";
 
 export default function Header() {
-  const stickyRef = useRef<HTMLDivElement>(null);
-  useStickyDetection(stickyRef, 64);
   return (
-    <header
-      className="p-[1rem] flex items-center gap-[0.5rem] sticky top-0 bg-white"
-      ref={stickyRef}
-    >
+    <header className="p-[1rem] flex items-center gap-[0.5rem] sticky top-0 bg-white z-1">
       <a href="/">
         <GithubIcon />
       </a>

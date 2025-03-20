@@ -1,7 +1,1 @@
 @import "tailwindcss";
-
-@layer utilities {
-  .is-sticky {
-    @apply shadow-md;
-  }
-}
