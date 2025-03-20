@@ -1,3 +1,6 @@
+import ListView from "../../../../shared/components/ListView";
+
+const issues = [];
 export default function IssuesTabContents() {
-  return <div>이슈 목록 페이지</div>;
+  return <ListView title="이슈 목록" items={issues} />;
 }
