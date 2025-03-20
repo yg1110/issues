@@ -3,9 +3,7 @@ import { ApiResult } from "../api-result";
 
 type Response = GitHubIssue[];
 type Request = GitHubIssuesRequest;
-export const getGithubIssues = async (
-  request: Request
-): Promise<ApiResult<Response>> => {
+export const getGithubIssues = async (request: Request): Promise<ApiResult<Response>> => {
   try {
     const url = `https://api.github.com/repos/${request.owner}/${request.repo}/issues?page=${request.page}`;
 

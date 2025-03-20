@@ -9,8 +9,7 @@ import IssuesTabLabel from "./components/IssuesTabLabel";
 import { useGithubIssues } from "./hooks/use-github-Issues";
 
 export default function IssuesPage() {
-  const { user: userParam, repo: repoPram } =
-    useParams<Record<string, string>>();
+  const { user: userParam, repo: repoPram } = useParams<Record<string, string>>();
   const { user, repo, updateInfo } = useInfoStore();
   const { data: issues } = useGithubIssues({
     owner: user,

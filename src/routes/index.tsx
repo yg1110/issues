@@ -1,8 +1,4 @@
-import {
-  createBrowserRouter,
-  redirect,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, redirect, RouterProvider } from "react-router-dom";
 
 import RootLayout from "./layouts/Root";
 import IssuesPage from "./pages/issues";
