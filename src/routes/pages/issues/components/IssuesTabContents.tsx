@@ -18,6 +18,7 @@ export default function IssuesTabContents({ issues }: Props) {
       description: issue.user.login,
       link: issue.html_url,
       icon: <IssueState state={issue.state} stateReason={issue.state_reason} />,
+      labels: issue.labels,
     }));
     setItems(items);
   }, [issues]);

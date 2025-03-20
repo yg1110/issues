@@ -1,7 +1,11 @@
+import { GitHubLabel } from "../../schemas/github-issue";
+import IssueLabel from "./IssueLabel";
+
 export interface ListItem {
   title: string;
   description: string;
   link: string;
+  labels?: GitHubLabel[];
   icon?: React.ReactNode;
 }
 
@@ -19,7 +23,7 @@ export default function ListView({ title, items }: Props) {
 
       {items.map((item, index) => (
         <a
-          key={index}
+          key={`${item.title}-${index}`}
           href={item.link}
           className="flex items-start px-4 py-3 border-b border-gray-300 last:border-none hover:bg-gray-100 transition"
         >
@@ -29,6 +33,17 @@ export default function ListView({ title, items }: Props) {
               {item.title}
             </h3>
             <p className="text-gray-600 text-sm">{item.description}</p>
+            {item.labels && (
+              <div className="flex gap-1 mt-2">
+                {item.labels.map((label) => (
+                  <IssueLabel
+                    key={label.id}
+                    text={label.name}
+                    color={`#${label.color}`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </a>
       ))}
