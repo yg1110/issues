@@ -1,14 +1,20 @@
+import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
+import { useParams } from "react-router-dom";
 
 import TabList from "../../../shared/components/TabList";
+import { useInfoStore } from "../../../store/info";
 import IssuesTabContents from "./components/IssuesTabContents";
 import IssuesTabLabel from "./components/IssuesTabLabel";
 import { useGithubIssues } from "./hooks/use-github-Issues";
 
 export default function IssuesPage() {
+  const { user: userParam, repo: repoPram } =
+    useParams<Record<string, string>>();
+  const { user, repo, updateInfo } = useInfoStore();
   const { data: issues } = useGithubIssues({
-    owner: import.meta.env.VITE_GITHUB_OWNER,
-    repo: import.meta.env.VITE_GITHUB_REPO,
+    owner: user,
+    repo: repo,
     page: 1,
   });
 
@@ -19,14 +25,15 @@ export default function IssuesPage() {
     },
   ];
 
+  useEffect(() => {
+    if (!userParam || !repoPram) return;
+    updateInfo(userParam, repoPram);
+  }, [userParam, repoPram]);
+
   return (
     <div>
       <Helmet>
-        <title>
-          {`Issues · ${import.meta.env.VITE_GITHUB_OWNER}/${
-            import.meta.env.VITE_GITHUB_REPO
-          }`}
-        </title>
+        <title>{`Issues · ${user}/${repo}`}</title>
       </Helmet>
       <TabList tabs={tabs} />
     </div>
