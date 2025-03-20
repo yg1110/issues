@@ -5,8 +5,8 @@ import { useGithubIssues } from "./hooks/use-github-Issues";
 
 export default function IssuesPage() {
   const { data: issues } = useGithubIssues({
-    owner: "yg1110",
-    repo: "issues",
+    owner: import.meta.env.VITE_GITHUB_OWNER,
+    repo: import.meta.env.VITE_GITHUB_REPO,
     page: 1,
   });
 

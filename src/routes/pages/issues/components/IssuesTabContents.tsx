@@ -13,7 +13,7 @@ export default function IssuesTabContents({ issues }: Props) {
     if (!issues) return;
     const items = issues.map((issue) => ({
       title: issue.title,
-      description: issue.body || "",
+      description: issue.user.login,
       link: issue.html_url,
     }));
     setItems(items);
