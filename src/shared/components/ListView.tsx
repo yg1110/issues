@@ -1,6 +1,6 @@
 import IssueIcon from "../icons/IssueIcon";
 
-interface ListItem {
+export interface ListItem {
   title: string;
   description: string;
   link: string;
