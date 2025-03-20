@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 
 import RootLayout from "./layouts/Root";
-import Issues from "./pages/Issues";
+import IssuesPage from "./pages/issues";
 
 const router = createBrowserRouter([
   {
@@ -13,7 +13,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Issues />,
+        element: <IssuesPage />,
       },
       {
         path: "*",
