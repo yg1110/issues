@@ -4,16 +4,22 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
+import RootLayout from "./layouts/Root";
 import Issues from "./pages/Issues";
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Issues />,
-  },
-  {
-    path: "*",
-    loader: async () => redirect("/"),
+    element: <RootLayout />,
+    children: [
+      {
+        path: "/",
+        element: <Issues />,
+      },
+      {
+        path: "*",
+        loader: async () => redirect("/"),
+      },
+    ],
   },
 ]);
 
