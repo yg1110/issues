@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { GitHubIssue } from "../../../../schemas/github-issue";
 import IssueState from "../../../../shared/components/IssueState";
 import ListView, { ListItem } from "../../../../shared/components/ListView";
+import IssueDescription from "./IssueDescription";
 
 type Props = {
   issues?: GitHubIssue[];
@@ -15,7 +16,7 @@ export default function IssuesTabContents({ issues }: Props) {
     if (!issues) return;
     const items = issues.map((issue) => ({
       title: issue.title,
-      description: issue.user.login,
+      description: <IssueDescription user={issue.user} milestone={issue.milestone} />,
       link: issue.html_url,
       icon: <IssueState state={issue.state} stateReason={issue.state_reason} />,
       labels: issue.labels,
