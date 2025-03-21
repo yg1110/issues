@@ -13,7 +13,7 @@ export default function IssueBody({ number, body, user, created_at }: Props) {
     <div className="w-full md:w-[80%] order-2 md:order-1 whitespace-pre-line bg-white space-y-6">
       {body ? (
         <div className="bg-white rounded-md border border-gray-200 mb-6">
-          <div className="flex items-start gap-3 bg-[#54aeff66] p-2">
+          <div className="flex items-start gap-3 bg-[#ddf4ff] p-2">
             <a href={`/${user.login}`} className="shrink-0">
               <img src={user.avatar_url} alt={`@${user.login}`} className="w-6 h-6 rounded-full" />
             </a>

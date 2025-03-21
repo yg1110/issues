@@ -26,7 +26,7 @@ export interface GitHubIssue {
   locked: boolean;
   assignee: GitHubUser | null;
   assignees: GitHubUser[];
-  milestone: null | GitHubMilestone;
+  milestone: GitHubMilestone | null;
   comments: number;
   created_at: string;
   updated_at: string;
