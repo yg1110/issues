@@ -28,7 +28,7 @@ export default function ListView({ title, items }: Props) {
           >
             {item.icon}
             <div className="ml-2">
-              <h3 className="font-semibold hover:underline">
+              <h3 className="font-semibold hover:underline hover:text-blue-600">
                 <a href={item.link}>{item.title}</a>
               </h3>
               <p className="text-gray-500 text-sm">{item.description}</p>

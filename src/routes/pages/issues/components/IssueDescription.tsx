@@ -14,7 +14,7 @@ export default function IssueDescription({ user, milestone }: Props) {
     <div className="flex items-center gap-1">
       <a
         href={authorUrl}
-        className="hover:underline hover:text-blue-600 font-medium"
+        className="hover:text-blue-600 font-medium"
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -26,7 +26,7 @@ export default function IssueDescription({ user, milestone }: Props) {
           <span>·</span>
           <a
             href={milestoneUrl}
-            className="flex gap-1 items-center hover:underline hover:text-blue-600"
+            className="flex gap-1 items-center hover:text-blue-600"
             target="_blank"
             rel="noopener noreferrer"
           >
