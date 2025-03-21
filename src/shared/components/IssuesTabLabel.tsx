@@ -1,4 +1,4 @@
-import IssueIcon from "../../../../shared/icons/IssueIcon";
+import IssueIcon from "../icons/IssueIcon";
 
 export default function IssuesTabLabel() {
   return (

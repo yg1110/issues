@@ -11,7 +11,7 @@ type Props = {
   issues?: GitHubIssue[];
 };
 
-export default function IssuesTabContents({ issues }: Props) {
+export default function IssuesList({ issues }: Props) {
   const { user, repo } = useInfoStore();
   const [items, setItems] = useState<ListItem[]>([]);
 

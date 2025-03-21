@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
 
+import IssuesTabLabel from "../../../../shared/components/IssuesTabLabel";
+import TabList from "../../../../shared/components/TabList";
 import { usePageInfoWithHelmet } from "../../../../shared/hooks/usePageInfo";
-import IssueBody from "./components/IssueBody";
-import IssueSideBar from "./components/IssueSideBar";
-import IssueTitle from "./components/IssueTitle";
+import IssueDetail from "./components/IssueDetail";
 import { useGithubIssue } from "./hooks/use-github-Issues";
 
 export default function IssuesDetailPage() {
@@ -16,18 +16,17 @@ export default function IssuesDetailPage() {
     repo: repo,
   });
 
+  const tabs = [
+    {
+      label: <IssuesTabLabel />,
+      contents: <IssueDetail issue={issue} />,
+    },
+  ];
+
   return (
     <div>
       {HelmetTitle}
-      {issue && (
-        <div className="max-w-6xl mx-auto px-4 pt-2">
-          <IssueTitle title={issue.title} />
-          <div className="flex flex-col md:flex-row gap-6 mb-8">
-            <IssueBody {...issue} />
-            <IssueSideBar {...issue} />
-          </div>
-        </div>
-      )}
+      <TabList tabs={tabs} />
     </div>
   );
 }

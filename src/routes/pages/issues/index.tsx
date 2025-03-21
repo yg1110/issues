@@ -1,7 +1,7 @@
+import IssuesTabLabel from "../../../shared/components/IssuesTabLabel";
 import TabList from "../../../shared/components/TabList";
 import { usePageInfoWithHelmet } from "../../../shared/hooks/usePageInfo";
-import IssuesTabContents from "./components/IssuesTabContents";
-import IssuesTabLabel from "./components/IssuesTabLabel";
+import IssuesList from "./components/IssuesList";
 import { useGithubIssues } from "./hooks/use-github-Issues";
 
 export default function IssuesPage() {
@@ -15,7 +15,7 @@ export default function IssuesPage() {
   const tabs = [
     {
       label: <IssuesTabLabel />,
-      contents: <IssuesTabContents issues={issues} />,
+      contents: <IssuesList issues={issues} />,
     },
   ];
 
