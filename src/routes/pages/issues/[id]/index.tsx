@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 
 import { usePageInfoWithHelmet } from "../../../../shared/hooks/usePageInfo";
+import IssueTitle from "./components/IssueTitle";
 import { useGithubIssue } from "./hooks/use-github-Issues";
 
 export default function IssuesDetailPage() {
@@ -16,7 +17,11 @@ export default function IssuesDetailPage() {
   return (
     <div>
       {HelmetTitle}
-      {id}
+      {issue && (
+        <div className="max-w-6xl mx-auto px-4 pt-2">
+          <IssueTitle title={issue.title} />
+        </div>
+      )}
     </div>
   );
 }
