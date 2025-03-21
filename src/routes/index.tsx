@@ -2,6 +2,7 @@ import { createBrowserRouter, redirect, RouterProvider } from "react-router-dom"
 
 import RootLayout from "./layouts/Root";
 import IssuesPage from "./pages/issues";
+import NewIssuesPage from "./pages/issues/new";
 
 const router = createBrowserRouter([
   {
@@ -12,8 +13,12 @@ const router = createBrowserRouter([
         element: <IssuesPage />,
       },
       {
+        path: "/:user/:repo/issues/new",
+        element: <NewIssuesPage />,
+      },
+      {
         path: "*",
-        loader: async () => redirect("/facebook/react/issues"),
+        loader: async () => redirect("/yg1110/issues/issues"),
       },
     ],
   },

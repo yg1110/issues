@@ -1,16 +1,11 @@
-import { useEffect } from "react";
-import { Helmet } from "react-helmet-async";
-import { useParams } from "react-router-dom";
-
 import TabList from "../../../shared/components/TabList";
-import { useInfoStore } from "../../../store/info";
+import { usePageInfoWithHelmet } from "../../../shared/hooks/usePageInfo";
 import IssuesTabContents from "./components/IssuesTabContents";
 import IssuesTabLabel from "./components/IssuesTabLabel";
 import { useGithubIssues } from "./hooks/use-github-Issues";
 
 export default function IssuesPage() {
-  const { user: userParam, repo: repoPram } = useParams<Record<string, string>>();
-  const { user, repo, updateInfo } = useInfoStore();
+  const { user, repo, HelmetTitle } = usePageInfoWithHelmet();
   const { data: issues } = useGithubIssues({
     owner: user,
     repo: repo,
@@ -24,16 +19,9 @@ export default function IssuesPage() {
     },
   ];
 
-  useEffect(() => {
-    if (!userParam || !repoPram) return;
-    updateInfo(userParam, repoPram);
-  }, [userParam, repoPram]);
-
   return (
     <div>
-      <Helmet>
-        <title>{`Issues · ${user}/${repo}`}</title>
-      </Helmet>
+      {HelmetTitle}
       <TabList tabs={tabs} />
     </div>
   );
