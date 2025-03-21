@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 
 import { GitHubIssue } from "../../../../schemas/github-issue";
+import Button from "../../../../shared/components/Button";
 import IssueState from "../../../../shared/components/IssueState";
 import ListView, { ListItem } from "../../../../shared/components/ListView";
+import { useInfoStore } from "../../../../store/info";
 import IssueDescription from "./IssueDescription";
 
 type Props = {
@@ -10,11 +12,13 @@ type Props = {
 };
 
 export default function IssuesTabContents({ issues }: Props) {
+  const { user, repo } = useInfoStore();
   const [items, setItems] = useState<ListItem[]>([]);
 
   useEffect(() => {
     if (!issues) return;
     const items = issues.map((issue) => ({
+      id: issue.number,
       title: issue.title,
       description: <IssueDescription user={issue.user} milestone={issue.milestone} />,
       link: issue.html_url,
@@ -25,5 +29,14 @@ export default function IssuesTabContents({ issues }: Props) {
   }, [issues]);
 
   if (!issues) return;
-  return <ListView title="이슈 목록" items={items} />;
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="flex justify-end">
+        <a href={`/${user}/${repo}/issues/new`}>
+          <Button>New issue</Button>
+        </a>
+      </div>
+      <ListView title="이슈 목록" items={items} />
+    </div>
+  );
 }
