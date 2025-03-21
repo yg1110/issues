@@ -1,7 +1,9 @@
 import { GitHubLabel } from "../../schemas/github-issue";
+import { useInfoStore } from "../../store/info";
 import IssueLabel from "./IssueLabel";
 
 export interface ListItem {
+  id: number;
   title: string | React.ReactNode;
   description: string | React.ReactNode;
   link: string;
@@ -15,6 +17,7 @@ type Props = {
 };
 
 export default function ListView({ title, items }: Props) {
+  const { user, repo } = useInfoStore();
   const hasItems = items.length > 0;
   return (
     <div className="bg-white border border-gray-300 rounded-md">
@@ -29,7 +32,7 @@ export default function ListView({ title, items }: Props) {
             {item.icon}
             <div className="ml-2">
               <h3 className="font-semibold hover:underline hover:text-blue-600">
-                <a href={item.link}>{item.title}</a>
+                <a href={`/${user}/${repo}/issues/${item.id}`}>{item.title}</a>
               </h3>
               <div className="text-gray-500 text-sm">{item.description}</div>
               {item.labels && (

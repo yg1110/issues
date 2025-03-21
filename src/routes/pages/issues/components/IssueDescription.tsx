@@ -12,12 +12,7 @@ export default function IssueDescription({ user, milestone }: Props) {
 
   return (
     <div className="flex items-center gap-1">
-      <a
-        href={authorUrl}
-        className="hover:text-blue-600 font-medium"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a href={authorUrl} className="hover:text-blue-600 font-medium" target="_blank" rel="noopener noreferrer">
         {user.login}
       </a>
 

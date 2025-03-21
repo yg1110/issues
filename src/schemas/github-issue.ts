@@ -4,6 +4,11 @@ export interface GitHubIssuesRequest {
   page: number;
 }
 
+export interface GitHubIssueRequest {
+  id: number;
+  owner: string;
+  repo: string;
+}
 export interface GitHubIssue {
   url: string;
   repository_url: string;
