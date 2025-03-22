@@ -5,6 +5,7 @@ import { postGithubIssue } from "@/api/repos/post-github-issue";
 import { getQueryClient } from "@/lib/tanstack-query/client";
 import { GitHubCreateIssueRequest } from "@/schemas/github-issue";
 
+import { TOAST_DURATION, TOAST_POSITION } from "../utils/constants";
 import { usePageInfoWithHelmet } from "./usePageInfoWithHelmet";
 
 export const useCreateGithubIssue = () => {
@@ -21,20 +22,20 @@ export const useCreateGithubIssue = () => {
     },
     onSuccess: () => {
       toast.success("이슈가 등록되었습니다.", {
-        duration: 2000,
-        position: "top-right",
+        duration: TOAST_DURATION,
+        position: TOAST_POSITION,
       });
       queryClient.invalidateQueries({
         queryKey: ["githubIssues"],
       });
       setTimeout(() => {
         window.location.href = `${user}/${repo}/issues`;
-      }, 2000);
+      }, TOAST_DURATION);
     },
     onError: (error: Error) => {
       toast.error(error.message, {
-        duration: 2000,
-        position: "top-right",
+        duration: TOAST_DURATION,
+        position: TOAST_POSITION,
       });
     },
   });

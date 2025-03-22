@@ -5,13 +5,14 @@ import { patchGithubIssue } from "@/api/repos/patch-github-issue";
 import { getQueryClient } from "@/lib/tanstack-query/client";
 import { GitHubUpdateIssueRequest } from "@/schemas/github-issue";
 
+import { TOAST_DURATION, TOAST_POSITION } from "../utils/constants";
 import { usePageInfoWithHelmet } from "./usePageInfoWithHelmet";
 
-export const useUpdateGithubIssue = () => {
+export const useUpdateGithubIssue = (issueNumber: number) => {
   const queryClient = getQueryClient();
   const { user, repo } = usePageInfoWithHelmet();
 
-  return useMutation({
+  const mutation = useMutation({
     mutationFn: async (request: GitHubUpdateIssueRequest) => {
       const res = await patchGithubIssue(request);
       if (res.status === "error") {
@@ -21,21 +22,32 @@ export const useUpdateGithubIssue = () => {
     },
     onSuccess: () => {
       toast.success("이슈가 수정되었습니다.", {
-        duration: 2000,
-        position: "top-right",
+        duration: TOAST_DURATION,
+        position: TOAST_POSITION,
       });
       queryClient.invalidateQueries({
         queryKey: ["githubIssue"],
       });
       setTimeout(() => {
-        window.location.href = `${user}/${repo}/issues`;
-      }, 2000);
+        window.location.href = `${user}/${repo}/issues/${issueNumber}`;
+      }, TOAST_DURATION);
     },
     onError: (error: Error) => {
       toast.error(error.message, {
-        duration: 2000,
-        position: "top-right",
+        duration: TOAST_DURATION,
+        position: TOAST_POSITION,
       });
     },
   });
+
+  return {
+    ...mutation,
+    safeMutate: (req: GitHubUpdateIssueRequest) => {
+      if (issueNumber > 0) {
+        mutation.mutate(req);
+      } else {
+        toast.error("유효하지 않은 이슈 번호입니다.");
+      }
+    },
+  };
 };

@@ -5,6 +5,8 @@ import { postGithubComment } from "@/api/repos/post-github-comment";
 import { getQueryClient } from "@/lib/tanstack-query/client";
 import { GitHubCommentChangeRequest } from "@/schemas/github-comment";
 
+import { TOAST_DURATION, TOAST_POSITION } from "../utils/constants";
+
 export const useCreateGithubComment = () => {
   const queryClient = getQueryClient();
   return useMutation({
@@ -17,8 +19,8 @@ export const useCreateGithubComment = () => {
     },
     onSuccess: () => {
       toast.success("댓글이 등록되었습니다.", {
-        duration: 2000,
-        position: "top-right",
+        duration: TOAST_DURATION,
+        position: TOAST_POSITION,
       });
       queryClient.invalidateQueries({
         queryKey: ["githubComments"],
@@ -26,8 +28,8 @@ export const useCreateGithubComment = () => {
     },
     onError: (error: Error) => {
       toast.error(error.message, {
-        duration: 2000,
-        position: "top-right",
+        duration: TOAST_DURATION,
+        position: TOAST_POSITION,
       });
     },
   });

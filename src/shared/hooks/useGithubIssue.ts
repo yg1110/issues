@@ -4,6 +4,8 @@ import toast from "react-hot-toast";
 import { getGithubIssue } from "@/api/repos/get-github-issue";
 import { GitHubIssueRequest } from "@/schemas/github-issue";
 
+import { TOAST_DURATION, TOAST_POSITION } from "../utils/constants";
+
 export const useGithubIssue = (request: GitHubIssueRequest) => {
   return useQuery({
     queryKey: ["githubIssue", request],
@@ -11,8 +13,8 @@ export const useGithubIssue = (request: GitHubIssueRequest) => {
       const res = await getGithubIssue(request);
       if (res.status === "error") {
         toast(res.error, {
-          duration: 2000,
-          position: "top-right",
+          duration: TOAST_DURATION,
+          position: TOAST_POSITION,
         });
         throw new Error(res.error);
       }
