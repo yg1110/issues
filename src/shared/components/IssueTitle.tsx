@@ -1,8 +1,10 @@
 interface Props {
+  label?: string;
+  required?: boolean;
   value: string;
   onChange: (value: string) => void;
 }
-export default function IssueTitle({ value, onChange }: Props) {
+export default function IssueTitle({ label = "Add a title", required = false, value, onChange }: Props) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
   };
@@ -10,7 +12,7 @@ export default function IssueTitle({ value, onChange }: Props) {
   return (
     <div>
       <label className="block text-sm font-medium text-gray-700 mb-1">
-        Add a title <span className="text-red-500">*</span>
+        {label} {required && <span className="text-red-500">*</span>}
       </label>
       <input
         type="text"

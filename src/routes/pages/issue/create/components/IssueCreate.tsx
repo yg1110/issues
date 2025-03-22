@@ -37,10 +37,6 @@ export default function IssueCreate({ userInfo }: Props) {
     });
   };
 
-  const handleCancel = () => {
-    window.history.back();
-  };
-
   if (!userInfo) return;
   return (
     <div className="max-w-6xl mx-auto px-4 pt-2">
@@ -49,15 +45,12 @@ export default function IssueCreate({ userInfo }: Props) {
           <div className="flex items-start gap-4 bg-white rounded-md">
             {userInfo && <UserProfile user={userInfo} />}
             <div className="flex flex-col flex-1 gap-4">
-              <IssueTitle value={title} onChange={handleTitleChange} />
-              <BodyEditor value={body} onChange={handleBodyChange} />
-
+              <IssueTitle label="Add a title" required={true} value={title} onChange={handleTitleChange} />
+              <BodyEditor label="Add a description" required={true} value={body} onChange={handleBodyChange} />
               <div className="flex items-center justify-end">
                 <div className="flex gap-2">
-                  <a href={`/${user}/${repo}/issues`} className="text-blue-500">
-                    <Button variant="outline" onClick={handleCancel}>
-                      Cancel
-                    </Button>
+                  <a href={`/${user}/${repo}/issues`}>
+                    <Button variant="outline">Cancel</Button>
                   </a>
                   <Button variant="secondary" disabled={!title || !body} onClick={handleSubmit}>
                     Create
