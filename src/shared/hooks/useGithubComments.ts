@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import { getGithubComments } from "../../api/repos/get-github-comments";
-import { GitHubCommentRequest } from "../../schemas/github-comment";
+import { getGithubComments } from "@/api/repos/get-github-comments";
+import { GitHubCommentRequest } from "@/schemas/github-comment";
 
 export const useGithubComments = (request: GitHubCommentRequest) => {
   return useQuery({

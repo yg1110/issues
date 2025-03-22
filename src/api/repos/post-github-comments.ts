@@ -1,4 +1,5 @@
-import { GitHubCommentRequest } from "../../schemas/github-comment";
+import { GitHubCommentRequest } from "@/schemas/github-comment";
+
 import { ApiResult } from "../api-result";
 
 type Request = GitHubCommentRequest;

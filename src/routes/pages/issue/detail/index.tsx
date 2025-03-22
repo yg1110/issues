@@ -1,10 +1,11 @@
 import { useParams } from "react-router-dom";
 
-import IssuesTabLabel from "../../../../shared/components/IssuesTabLabel";
-import TabList from "../../../../shared/components/TabList";
-import { useGithubComments } from "../../../../shared/hooks/useGithubComments";
-import { useGithubIssue } from "../../../../shared/hooks/useGithubIssue";
-import { usePageInfoWithHelmet } from "../../../../shared/hooks/usePageInfoWithHelmet";
+import IssuesTabLabel from "@/shared/components/IssuesTabLabel";
+import TabList from "@/shared/components/TabList";
+import { useGithubComments } from "@/shared/hooks/useGithubComments";
+import { useGithubIssue } from "@/shared/hooks/useGithubIssue";
+import { usePageInfoWithHelmet } from "@/shared/hooks/usePageInfoWithHelmet";
+
 import IssueDetail from "./components/IssueDetail";
 
 export default function IssuesDetailPage() {

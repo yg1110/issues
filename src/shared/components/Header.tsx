@@ -1,4 +1,5 @@
-import { useInfoStore } from "../../store/info";
+import { useInfoStore } from "@/store/info";
+
 import GithubIcon from "../icons/GithubIcon";
 import SlashIcon from "../icons/SlashIcon";
 

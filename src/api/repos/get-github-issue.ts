@@ -1,4 +1,5 @@
-import { GitHubIssue, GitHubIssueRequest } from "../../schemas/github-issue";
+import { GitHubIssue, GitHubIssueRequest } from "@/schemas/github-issue";
+
 import { ApiResult } from "../api-result";
 
 type Response = GitHubIssue;

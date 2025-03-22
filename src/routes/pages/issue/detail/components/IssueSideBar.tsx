@@ -1,6 +1,6 @@
-import { GitHubLabel, GitHubMilestone, GitHubUser } from "../../../../../schemas/github-issue";
-import IssueLabel from "../../../../../shared/components/IssueLabel";
-import MilestoneIcon from "../../../../../shared/icons/MilestoneIcon";
+import { GitHubLabel, GitHubMilestone, GitHubUser } from "@/schemas/github-issue";
+import IssueLabel from "@/shared/components/IssueLabel";
+import MilestoneIcon from "@/shared/icons/MilestoneIcon";
 
 interface Props {
   assignees: GitHubUser[];

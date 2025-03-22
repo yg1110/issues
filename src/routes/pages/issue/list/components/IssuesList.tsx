@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 
-import { GitHubIssue } from "../../../../../schemas/github-issue";
-import Button from "../../../../../shared/components/Button";
-import IssueState from "../../../../../shared/components/IssueState";
-import ListView, { ListItem } from "../../../../../shared/components/ListView";
-import { useInfoStore } from "../../../../../store/info";
+import { GitHubIssue } from "@/schemas/github-issue";
+import Button from "@/shared/components/Button";
+import IssueState from "@/shared/components/IssueState";
+import ListView, { ListItem } from "@/shared/components/ListView";
+import { useInfoStore } from "@/store/info";
+
 import IssueDescription from "./IssueDescription";
 
 type Props = {

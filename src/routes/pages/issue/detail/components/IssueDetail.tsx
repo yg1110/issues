@@ -1,7 +1,8 @@
-import { GitHubComment } from "../../../../../schemas/github-comment";
-import { GitHubIssue } from "../../../../../schemas/github-issue";
-import { useCreateGithubComment } from "../../../../../shared/hooks/useCreateGithubComment";
-import { usePageInfoWithHelmet } from "../../../../../shared/hooks/usePageInfoWithHelmet";
+import { GitHubComment } from "@/schemas/github-comment";
+import { GitHubIssue } from "@/schemas/github-issue";
+import { useCreateGithubComment } from "@/shared/hooks/useCreateGithubComment";
+import { usePageInfoWithHelmet } from "@/shared/hooks/usePageInfoWithHelmet";
+
 import CommentEditor from "./CommentEditor";
 import IssueBody from "./IssueBody";
 import IssueSideBar from "./IssueSideBar";

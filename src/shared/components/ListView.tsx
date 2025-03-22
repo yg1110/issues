@@ -1,5 +1,6 @@
-import { GitHubLabel } from "../../schemas/github-issue";
-import { useInfoStore } from "../../store/info";
+import { GitHubLabel } from "@/schemas/github-issue";
+import { useInfoStore } from "@/store/info";
+
 import IssueLabel from "./IssueLabel";
 
 export interface ListItem {

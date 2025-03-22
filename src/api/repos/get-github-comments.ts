@@ -1,4 +1,5 @@
-import { GitHubComment, GitHubCommentRequest } from "../../schemas/github-comment";
+import { GitHubComment, GitHubCommentRequest } from "@/schemas/github-comment";
+
 import { ApiResult } from "../api-result";
 
 type Response = GitHubComment[];

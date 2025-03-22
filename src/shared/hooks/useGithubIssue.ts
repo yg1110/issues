@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import { getGithubIssue } from "../../api/repos/get-github-issue";
-import { GitHubIssueRequest } from "../../schemas/github-issue";
+import { getGithubIssue } from "@/api/repos/get-github-issue";
+import { GitHubIssueRequest } from "@/schemas/github-issue";
 
 export const useGithubIssue = (request: GitHubIssueRequest) => {
   return useQuery({
