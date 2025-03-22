@@ -9,9 +9,9 @@ interface Props {
 }
 export default function IssueSideBar({ assignees, milestone, labels }: Props) {
   return (
-    <div className="w-full md:w-[20%] order-1 md:order-2">
-      <div className="bg-white md:pb-4 md:mb-4 md:border-b md:border-[#d1d9e0b3] flex flex-row md:flex-col">
-        <h3 className="font-medium mb-2 w-25 shrink-0">Assignees</h3>
+    <div className="w-full md:w-[20%] order-1 md:order-2 flex flex-col gap-4 md:gap-0">
+      <div className="bg-white md:pb-4 md:mb-4 md:border-b md:border-[#d1d9e0b3] flex flex-row md:flex-col items-center md:items-baseline">
+        <h3 className="font-medium w-25 shrink-0">Assignees</h3>
         {assignees.length > 0 ? (
           <div className="flex flex-col gap-2">
             {assignees.map((user) => (
@@ -32,8 +32,8 @@ export default function IssueSideBar({ assignees, milestone, labels }: Props) {
         )}
       </div>
 
-      <div className="bg-white md:pb-4 md:mb-4 md:border-b md:border-[#d1d9e0b3] flex flex-row md:flex-col">
-        <h3 className="font-medium mb-2 w-25 shrink-0">Milestone</h3>
+      <div className="bg-white md:pb-4 md:mb-4 md:border-b md:border-[#d1d9e0b3] flex flex-row md:flex-col items-center md:items-baseline">
+        <h3 className="font-medium w-25 shrink-0">Milestone</h3>
         {milestone ? (
           <a
             href={milestone.html_url}
@@ -49,10 +49,10 @@ export default function IssueSideBar({ assignees, milestone, labels }: Props) {
         )}
       </div>
 
-      <div className="bg-white flex flex-row md:flex-col">
-        <h3 className="font-medium mb-2 w-25 shrink-0">Labels</h3>
+      <div className="bg-white flex flex-row md:flex-col items-center md:items-baseline">
+        <h3 className="font-medium w-25 shrink-0">Labels</h3>
         {labels.length > 0 ? (
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 items-center">
             {labels.map((label) => (
               <IssueLabel key={label.id} text={label.name} color={`#${label.color}`} />
             ))}

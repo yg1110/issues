@@ -11,7 +11,7 @@ export default function IssueLabel({ text, color }: Props) {
   const textColor = isLightColor ? "#000" : color;
   return (
     <span
-      className="px-2 py-1 text-xs font-semibold rounded-full border"
+      className="px-2 py-1 text-xs font-semibold rounded-full border items-center"
       style={{
         background: "white",
         borderColor: textColor,

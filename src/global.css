@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @layer components {
   pre {
-    @apply p-4 overflow-auto text-[85%] leading-[1.45] text-[#1f2328] bg-[#f6f8fa] rounded-md;
+    @apply w-full p-4 overflow-x-auto text-[85%] leading-[1.45] text-[#1f2328] bg-[#f6f8fa] rounded-md;
+  }
+
+  code {
+    @apply break-all whitespace-pre-wrap;
   }
 }

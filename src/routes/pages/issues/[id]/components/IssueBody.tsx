@@ -15,7 +15,7 @@ export default function IssueBody({ body, user, created_at }: Props) {
           <a href={`https://github.com/${user.login}`} className="shrink-0">
             <img src={user.avatar_url} alt={user.login} className="w-10 h-10 rounded-full" />
           </a>
-          <div className="bg-white rounded-md border border-gray-200 mb-6 w-full">
+          <div className="bg-white rounded-md border border-gray-200 mb-6 w">
             <div className="flex items-start gap-3 bg-[#ddf4ff] p-2">
               <div className="flex flex-col text-sm">
                 <div className="flex items-center gap-1">
@@ -34,7 +34,7 @@ export default function IssueBody({ body, user, created_at }: Props) {
               </div>
             </div>
 
-            <div className="prose prose-sm sm:prose lg:prose-lg max-w-none dark:prose-invert p-4">
+            <div className="prose prose-sm sm:prose lg:prose-lg max-w-full dark:prose-invert p-4 overflow-x-auto break-words">
               {body ? (
                 <ReactMarkdown>{body}</ReactMarkdown>
               ) : (
