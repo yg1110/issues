@@ -10,7 +10,7 @@ export const postGithubComment = async (request: Request): Promise<ApiResult<voi
     const response = await fetch(url, {
       method: "POST",
       headers: {
-        Authorization: request?.token ? `token ${request.token}` : "",
+        Authorization: import.meta.env.VITE_GITHUB_TOKEN ? `token ${import.meta.env.VITE_GITHUB_TOKEN}` : "",
         Accept: "application/vnd.github+json",
         "Content-Type": "application/json",
       },

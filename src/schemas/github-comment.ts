@@ -8,7 +8,6 @@ export interface GitHubCommentRequest {
 }
 
 export interface GitHubCommentChangeRequest extends GitHubCommentRequest {
-  token?: string;
   body?: string;
 }
 

@@ -28,7 +28,6 @@ export default function IssueDetail({ issue, comments, assignees, labels, milest
       owner: user,
       repo: repo,
       issueNumber: issue?.number || 0,
-      token: import.meta.env.VITE_GITHUB_TOKEN,
       body: comment,
     });
   };

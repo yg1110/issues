@@ -4,7 +4,6 @@ export interface GitHubLabelsRequest {
 }
 
 export interface GitHubUpdateLabelsRequest extends GitHubLabelsRequest {
-  token: string;
   issueNumber: number;
   labels: string[];
 }

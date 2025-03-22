@@ -39,7 +39,6 @@ export default function IssueCreate({ userInfo, assignees, labels, milestones }:
       repo: repo,
       body: body,
       title: title,
-      token: import.meta.env.VITE_GITHUB_TOKEN,
     });
   };
 

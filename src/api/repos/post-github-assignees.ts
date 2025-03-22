@@ -4,14 +4,14 @@ import { ApiResult } from "../api-result";
 
 type Request = GitHubUpdateAssigneesRequest;
 export const postGithubAssignees = async (request: Request): Promise<ApiResult<void>> => {
-  const { owner, repo, issueNumber, token, ...rest } = request;
+  const { owner, repo, issueNumber, ...rest } = request;
   try {
     const url = `https://api.github.com/repos/${owner}/${repo}/issues/${issueNumber}/assignees`;
 
     const response = await fetch(url, {
       method: "POST",
       headers: {
-        Authorization: token ? `token ${token}` : "",
+        Authorization: import.meta.env.VITE_GITHUB_TOKEN ? `token ${import.meta.env.VITE_GITHUB_TOKEN}` : "",
         Accept: "application/vnd.github+json",
         "Content-Type": "application/json",
       },

@@ -4,14 +4,14 @@ import { ApiResult } from "../api-result";
 
 type Request = GitHubUpdateIssueRequest;
 export const patchGithubIssue = async (request: Request): Promise<ApiResult<void>> => {
-  const { owner, repo, token, ...rest } = request;
+  const { owner, repo, ...rest } = request;
   try {
     const url = `https://api.github.com/repos/${owner}/${repo}/issues/${request.id}`;
 
     const response = await fetch(url, {
       method: "PATCH",
       headers: {
-        Authorization: token ? `token ${token}` : "",
+        Authorization: import.meta.env.VITE_GITHUB_TOKEN ? `token ${import.meta.env.VITE_GITHUB_TOKEN}` : "",
         Accept: "application/vnd.github+json",
         "Content-Type": "application/json",
       },

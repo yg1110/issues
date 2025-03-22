@@ -42,7 +42,6 @@ export default function IssueEdit({ issue, userInfo, assignees, labels, mileston
       repo: repo,
       body: body,
       title: title,
-      token: import.meta.env.VITE_GITHUB_TOKEN,
     });
   };
 

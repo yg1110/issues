@@ -47,7 +47,6 @@ export default function IssueSideBar({
       id: issueNumber,
       owner: user,
       repo: repo,
-      token: import.meta.env.VITE_GITHUB_TOKEN,
       assignees: assignees,
     });
   };
@@ -58,7 +57,6 @@ export default function IssueSideBar({
     updateGithubLabels({
       owner: user,
       repo: repo,
-      token: import.meta.env.VITE_GITHUB_TOKEN,
       issueNumber: issueNumber,
       labels: labels,
     });

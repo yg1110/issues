@@ -3,7 +3,6 @@ export interface GitHubAssigneesRequest {
   repo: string;
 }
 export interface GitHubUpdateAssigneesRequest extends GitHubAssigneesRequest {
-  token: string;
   issueNumber: number;
   assignees: string[];
 }

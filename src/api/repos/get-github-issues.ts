@@ -8,7 +8,13 @@ export const getGithubIssues = async (request: Request): Promise<ApiResult<Respo
   try {
     const url = `https://api.github.com/repos/${request.owner}/${request.repo}/issues?page=${request.page}`;
 
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      headers: {
+        Authorization: import.meta.env.VITE_GITHUB_TOKEN ? `token ${import.meta.env.VITE_GITHUB_TOKEN}` : "",
+        Accept: "application/vnd.github+json",
+        "Content-Type": "application/json",
+      },
+    });
     const result = await response.json();
 
     if (response.ok) {

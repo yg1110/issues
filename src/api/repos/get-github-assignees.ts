@@ -9,7 +9,13 @@ export const getGithubAssignees = async (request: Request): Promise<ApiResult<Re
   try {
     const url = `https://api.github.com/repos/${request.owner}/${request.repo}/assignees`;
 
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      headers: {
+        Authorization: import.meta.env.VITE_GITHUB_TOKEN ? `token ${import.meta.env.VITE_GITHUB_TOKEN}` : "",
+        Accept: "application/vnd.github+json",
+        "Content-Type": "application/json",
+      },
+    });
     const result = await response.json();
 
     if (response.ok) {
