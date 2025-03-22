@@ -1,9 +1,9 @@
 import { createBrowserRouter, redirect, RouterProvider } from "react-router-dom";
 
 import RootLayout from "./layouts/Root";
-import IssuesPage from "./pages/issues";
-import IssuesDetailPage from "./pages/issues/[id]";
-import NewIssuesPage from "./pages/issues/new";
+import IssuesDetailPage from "./pages/issue/detail";
+import IssuesPage from "./pages/issue/list";
+import NewIssuesPage from "./pages/issue/new";
 
 const router = createBrowserRouter([
   {

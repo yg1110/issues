@@ -1,7 +1,7 @@
 import MDEditor from "@uiw/react-md-editor";
 import { useState } from "react";
 
-export function CommentComposer({
+export default function CommentEditor({
   avatarUrl,
   username,
   onSubmit,

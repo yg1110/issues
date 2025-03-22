@@ -1,8 +1,8 @@
 import { GitHubComment } from "../../../../../schemas/github-comment";
 import { GitHubIssue } from "../../../../../schemas/github-issue";
-import { usePageInfoWithHelmet } from "../../../../../shared/hooks/usePageInfo";
-import { useWriteGithubComment } from "../hooks/use-write-github-comment";
-import { CommentComposer } from "./CommentComposer";
+import { useCreateGithubComment } from "../../../../../shared/hooks/useCreateGithubComment";
+import { usePageInfoWithHelmet } from "../../../../../shared/hooks/usePageInfoWithHelmet";
+import CommentEditor from "./CommentEditor";
 import IssueBody from "./IssueBody";
 import IssueSideBar from "./IssueSideBar";
 import IssueTitle from "./IssueTitle";
@@ -14,10 +14,10 @@ type Props = {
 
 export default function IssueDetail({ issue, comments }: Props) {
   const { user, repo } = usePageInfoWithHelmet();
-  const { mutate: writeGithubComment } = useWriteGithubComment();
+  const { mutate: createGithubComment } = useCreateGithubComment();
 
   const writeCommand = (comment: string) => {
-    writeGithubComment({
+    createGithubComment({
       owner: user,
       repo: repo,
       issueNumber: issue?.number || 0,
@@ -35,7 +35,7 @@ export default function IssueDetail({ issue, comments }: Props) {
         <div className="w-full md:w-[80%] order-2 md:order-1">
           <IssueBody {...issue} />
           {comments?.map((comment) => <IssueBody key={comment.id} {...comment} />)}
-          <CommentComposer avatarUrl={issue.user.avatar_url} username={issue.user.login} onSubmit={writeCommand} />
+          <CommentEditor avatarUrl={issue.user.avatar_url} username={issue.user.login} onSubmit={writeCommand} />
         </div>
         <IssueSideBar {...issue} />
       </div>

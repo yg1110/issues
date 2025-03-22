@@ -1,8 +1,8 @@
-import IssuesTabLabel from "../../../shared/components/IssuesTabLabel";
-import TabList from "../../../shared/components/TabList";
-import { usePageInfoWithHelmet } from "../../../shared/hooks/usePageInfo";
+import IssuesTabLabel from "../../../../shared/components/IssuesTabLabel";
+import TabList from "../../../../shared/components/TabList";
+import { useGithubIssues } from "../../../../shared/hooks/useGithubIssues";
+import { usePageInfoWithHelmet } from "../../../../shared/hooks/usePageInfoWithHelmet";
 import IssuesList from "./components/IssuesList";
-import { useGithubIssues } from "./hooks/use-github-Issues";
 
 export default function IssuesPage() {
   const { user, repo, HelmetTitle } = usePageInfoWithHelmet();

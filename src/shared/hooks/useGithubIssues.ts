@@ -1,14 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import { getGithubIssue } from "../../../../../api/repos/get-github-issue";
-import { GitHubIssueRequest } from "../../../../../schemas/github-issue";
+import { getGithubIssues } from "../../api/repos/get-github-issues";
+import { GitHubIssuesRequest } from "../../schemas/github-issue";
 
-export const useGithubIssue = (request: GitHubIssueRequest) => {
+export const useGithubIssues = (request: GitHubIssuesRequest) => {
   return useQuery({
-    queryKey: ["githubIssue", request],
+    queryKey: ["githubIssues", request],
     queryFn: async () => {
-      const res = await getGithubIssue(request);
+      const res = await getGithubIssues(request);
       if (res.status === "error") {
         toast(res.error, {
           duration: 2000,
@@ -18,6 +18,5 @@ export const useGithubIssue = (request: GitHubIssueRequest) => {
       }
       return res.data;
     },
-    enabled: request.id !== 0,
   });
 };

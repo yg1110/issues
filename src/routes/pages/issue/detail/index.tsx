@@ -2,10 +2,10 @@ import { useParams } from "react-router-dom";
 
 import IssuesTabLabel from "../../../../shared/components/IssuesTabLabel";
 import TabList from "../../../../shared/components/TabList";
-import { usePageInfoWithHelmet } from "../../../../shared/hooks/usePageInfo";
+import { useGithubComments } from "../../../../shared/hooks/useGithubComments";
+import { useGithubIssue } from "../../../../shared/hooks/useGithubIssue";
+import { usePageInfoWithHelmet } from "../../../../shared/hooks/usePageInfoWithHelmet";
 import IssueDetail from "./components/IssueDetail";
-import { useGithubComments } from "./hooks/use-github-comments";
-import { useGithubIssue } from "./hooks/use-github-Issues";
 
 export default function IssuesDetailPage() {
   const { id } = useParams<{ id: string }>();
