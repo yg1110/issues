@@ -9,11 +9,19 @@ type Props = {
   title?: string;
   labels: Label[];
   selected: string[];
+  placeholder?: string;
   footer?: React.ReactNode;
   onChange: (selectedIds: string[]) => void;
 };
 
-export default function MultiSelector({ title, labels, selected, footer, onChange }: Props) {
+export default function MultiSelector({
+  title,
+  placeholder = "Filter labels",
+  labels,
+  selected,
+  footer,
+  onChange,
+}: Props) {
   const [filter, setFilter] = useState("");
 
   const filteredLabels = labels.filter((label) => label.name.toLowerCase().includes(filter.toLowerCase()));
@@ -32,7 +40,7 @@ export default function MultiSelector({ title, labels, selected, footer, onChang
       <div className="relative mb-4">
         <input
           type="text"
-          placeholder="Filter labels"
+          placeholder={placeholder}
           className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}

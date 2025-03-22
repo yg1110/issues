@@ -21,6 +21,7 @@ export default function AssigneesDropdown({ labels, selected, onChange }: Props)
     >
       <MultiSelector
         title="Assign up to 10 people to this issue"
+        placeholder="Filter assignees"
         labels={labels}
         selected={selected}
         onChange={onChange}

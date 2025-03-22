@@ -21,6 +21,7 @@ export default function LabelsDropdown({ labels, selected, onChange }: Props) {
     >
       <MultiSelector
         title="Apply labels to this issue"
+        placeholder="Filter labels"
         labels={labels}
         selected={selected}
         onChange={onChange}

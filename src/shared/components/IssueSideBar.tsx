@@ -6,7 +6,9 @@ import { GitHubSimpleUser } from "@/schemas/github-user";
 import AssigneesDropdown from "@/shared/components/AssigneesDropdown";
 import IssueLabel from "@/shared/components/IssueLabel";
 import LabelsDropdown from "@/shared/components/LabelsDropdown";
-import MilestoneIcon from "@/shared/icons/MilestoneIcon";
+
+import MilestoneIcon from "../icons/MilestoneIcon";
+import MileStoneDropdown from "./milestoneDropdown";
 
 interface Props {
   assignees: GitHubSimpleUser[];
@@ -15,6 +17,7 @@ interface Props {
 }
 export default function IssueSideBar({ assignees, milestone, labels }: Props) {
   const [selectedAssignees, setSelectedAssignees] = useState<string[]>([]);
+  const [selectedMilestone, setSelectedMilestone] = useState<string | null>(null);
   const [selectedLabel, setSelectedLabel] = useState<string[]>([]);
 
   const formattedAssigneesLabels = assignees.map((assignee) => ({
@@ -25,6 +28,10 @@ export default function IssueSideBar({ assignees, milestone, labels }: Props) {
     id: label.id.toString(),
     name: label.name,
   }));
+  const formattedMilestones = {
+    id: milestone?.id.toString() || "",
+    name: milestone?.title || "",
+  };
 
   return (
     <div className="w-full md:w-[30%] order-1 md:order-2 flex flex-col gap-4 md:gap-0">
@@ -55,7 +62,11 @@ export default function IssueSideBar({ assignees, milestone, labels }: Props) {
       </div>
 
       <div className="bg-white md:pb-4 md:mb-4 md:border-b md:border-[#d1d9e0b3] flex flex-row gap-2 md:flex-col items-center md:items-baseline">
-        <h3 className="font-medium w-25 shrink-0">Milestone</h3>
+        <MileStoneDropdown
+          options={[formattedMilestones]}
+          selected={selectedMilestone}
+          onChange={setSelectedMilestone}
+        />
         {milestone ? (
           <a
             href={milestone.html_url}
