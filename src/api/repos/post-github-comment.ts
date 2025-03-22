@@ -1,9 +1,9 @@
-import { GitHubCommentRequest } from "@/schemas/github-comment";
+import { GitHubCommentChangeRequest } from "@/schemas/github-comment";
 
 import { ApiResult } from "../api-result";
 
-type Request = GitHubCommentRequest;
-export const postGithubComments = async (request: Request): Promise<ApiResult<void>> => {
+type Request = GitHubCommentChangeRequest;
+export const postGithubComment = async (request: Request): Promise<ApiResult<void>> => {
   try {
     const url = `https://api.github.com/repos/${request.owner}/${request.repo}/issues/${request.issueNumber}/comments`;
 

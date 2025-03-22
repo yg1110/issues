@@ -4,6 +4,9 @@ export interface GitHubCommentRequest {
   owner: string;
   repo: string;
   issueNumber: number;
+}
+
+export interface GitHubCommentChangeRequest extends GitHubCommentRequest {
   token?: string;
   body?: string;
 }
