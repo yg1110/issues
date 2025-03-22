@@ -18,6 +18,10 @@ export interface GitHubCreateIssueRequest {
   body?: string;
 }
 
+export interface GitHubUpdateIssueRequest extends GitHubCreateIssueRequest {
+  id: number;
+}
+
 export interface GitHubIssue {
   url: string;
   repository_url: string;
