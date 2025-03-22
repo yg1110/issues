@@ -1,4 +1,5 @@
 import { GitHubLabel } from "./github-label";
+import { GitHubMilestone } from "./github-milestone";
 import { GitHubSimpleUser } from "./github-user";
 
 export interface GitHubIssuesRequest {
@@ -55,25 +56,6 @@ export interface GitHubIssue {
   reactions: GitHubReactions;
   timeline_url: string;
   state_reason: string | null;
-}
-
-export interface GitHubMilestone {
-  url: string;
-  html_url: string;
-  labels_url: string;
-  id: number;
-  node_id: string;
-  number: number;
-  title: string;
-  description: string | null;
-  creator: GitHubSimpleUser;
-  open_issues: number;
-  closed_issues: number;
-  state: "open" | "closed";
-  created_at: string;
-  updated_at: string;
-  due_on: string | null;
-  closed_at: string | null;
 }
 
 export interface SubIssuesSummary {
