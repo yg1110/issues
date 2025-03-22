@@ -50,7 +50,7 @@ export default function IssueEdit({ issue, userInfo }: Props) {
   return (
     <div className="max-w-6xl mx-auto px-4 pt-2">
       <div className="flex flex-col md:flex-row gap-6 mb-8">
-        <div className="w-full md:w-[80%] order-1">
+        <div className="w-full md:w-[70%] order-1">
           <div className="flex items-start gap-4 bg-white rounded-md">
             {userInfo && <UserProfile user={userInfo} />}
             <div className="flex flex-col flex-1 gap-4">

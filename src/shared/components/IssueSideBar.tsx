@@ -1,7 +1,11 @@
-import { GitHubMilestone } from "@/schemas/github-issue";
+import { useState } from "react";
+
 import { GitHubLabel } from "@/schemas/github-label";
+import { GitHubMilestone } from "@/schemas/github-milestone";
 import { GitHubSimpleUser } from "@/schemas/github-user";
+import AssigneesDropdown from "@/shared/components/AssigneesDropdown";
 import IssueLabel from "@/shared/components/IssueLabel";
+import LabelsDropdown from "@/shared/components/LabelsDropdown";
 import MilestoneIcon from "@/shared/icons/MilestoneIcon";
 
 interface Props {
@@ -10,10 +14,26 @@ interface Props {
   labels: GitHubLabel[];
 }
 export default function IssueSideBar({ assignees, milestone, labels }: Props) {
+  const [selectedAssignees, setSelectedAssignees] = useState<string[]>([]);
+  const [selectedLabel, setSelectedLabel] = useState<string[]>([]);
+
+  const formattedAssigneesLabels = assignees.map((assignee) => ({
+    id: assignee.id.toString(),
+    name: assignee.login,
+  }));
+  const formattedLabels = labels.map((label) => ({
+    id: label.id.toString(),
+    name: label.name,
+  }));
+
   return (
-    <div className="w-full md:w-[20%] order-1 md:order-2 flex flex-col gap-4 md:gap-0">
-      <div className="bg-white md:pb-4 md:mb-4 md:border-b md:border-[#d1d9e0b3] flex flex-row md:flex-col items-center md:items-baseline">
-        <h3 className="font-medium w-25 shrink-0">Assignees</h3>
+    <div className="w-full md:w-[30%] order-1 md:order-2 flex flex-col gap-4 md:gap-0">
+      <div className="bg-white md:pb-4 md:mb-4 md:border-b md:border-[#d1d9e0b3] flex flex-row gap-2 md:flex-col items-center md:items-baseline">
+        <AssigneesDropdown
+          labels={formattedAssigneesLabels}
+          selected={selectedAssignees}
+          onChange={setSelectedAssignees}
+        />
         {assignees.length > 0 ? (
           <div className="flex flex-col gap-2">
             {assignees.map((user) => (
@@ -34,7 +54,7 @@ export default function IssueSideBar({ assignees, milestone, labels }: Props) {
         )}
       </div>
 
-      <div className="bg-white md:pb-4 md:mb-4 md:border-b md:border-[#d1d9e0b3] flex flex-row md:flex-col items-center md:items-baseline">
+      <div className="bg-white md:pb-4 md:mb-4 md:border-b md:border-[#d1d9e0b3] flex flex-row gap-2 md:flex-col items-center md:items-baseline">
         <h3 className="font-medium w-25 shrink-0">Milestone</h3>
         {milestone ? (
           <a
@@ -51,8 +71,8 @@ export default function IssueSideBar({ assignees, milestone, labels }: Props) {
         )}
       </div>
 
-      <div className="bg-white flex flex-row md:flex-col items-center md:items-baseline">
-        <h3 className="font-medium w-25 shrink-0">Labels</h3>
+      <div className="bg-white flex flex-row gap-2 md:flex-col items-center md:items-baseline">
+        <LabelsDropdown labels={formattedLabels} selected={selectedLabel} onChange={setSelectedLabel} />
         {labels.length > 0 ? (
           <div className="flex flex-wrap gap-2 items-center">
             {labels.map((label) => (
