@@ -1,13 +1,12 @@
 import { useState } from "react";
 
 import { GitHubUser } from "@/schemas/github-user";
+import BodyEditor from "@/shared/components/BodyEditor";
 import Button from "@/shared/components/Button";
+import IssueTitle from "@/shared/components/IssueTitle";
+import UserProfile from "@/shared/components/UserProfile";
 import { useCreateGithubIssue } from "@/shared/hooks/useCreateGithubIssue";
 import { usePageInfoWithHelmet } from "@/shared/hooks/usePageInfoWithHelmet";
-
-import BodyEditor from "./BodyEditor";
-import IssueTitle from "./IssueTitle";
-import UserProfile from "./UserProfile";
 
 interface Props {
   userInfo?: GitHubUser;
@@ -55,9 +54,11 @@ export default function IssueCreate({ userInfo }: Props) {
 
               <div className="flex items-center justify-end">
                 <div className="flex gap-2">
-                  <Button variant="outline" onClick={handleCancel}>
-                    Cancel
-                  </Button>
+                  <a href={`/${user}/${repo}/issues`} className="text-blue-500">
+                    <Button variant="outline" onClick={handleCancel}>
+                      Cancel
+                    </Button>
+                  </a>
                   <Button variant="secondary" disabled={!title || !body} onClick={handleSubmit}>
                     Create
                   </Button>

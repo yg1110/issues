@@ -33,7 +33,7 @@ export default function ListView({ title, items }: Props) {
             {item.icon}
             <div className="ml-2">
               <h3 className="font-semibold hover:underline hover:text-blue-600">
-                <a href={`/${user}/${repo}/issues/${item.id}`}>{item.title}</a>
+                <a href={`/${user}/${repo}/issue/${item.id}`}>{item.title}</a>
               </h3>
               <div className="text-gray-500 text-sm">{item.description}</div>
               {item.labels && (

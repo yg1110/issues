@@ -14,11 +14,11 @@ const router = createBrowserRouter([
         element: <IssuesPage />,
       },
       {
-        path: "/:user/:repo/issues/create",
+        path: "/:user/:repo/issue/create",
         element: <IssuesCreatePage />,
       },
       {
-        path: "/:user/:repo/issues/:id",
+        path: "/:user/:repo/issue/:id",
         element: <IssuesDetailPage />,
       },
       {

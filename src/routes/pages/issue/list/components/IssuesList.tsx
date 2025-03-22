@@ -32,7 +32,7 @@ export default function IssuesList({ issues }: Props) {
   return (
     <div className="flex flex-col gap-2">
       <div className="flex justify-end">
-        <a href={`/${user}/${repo}/issues/create`}>
+        <a href={`/${user}/${repo}/issue/create`}>
           <Button>New issue</Button>
         </a>
       </div>
