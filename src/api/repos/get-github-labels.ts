@@ -1,4 +1,4 @@
-import { GitHubLabel, GitHubLabelsRequest } from "@/schemas/github-labels";
+import { GitHubLabel, GitHubLabelsRequest } from "@/schemas/github-label";
 
 import { ApiResult } from "../api-result";
 

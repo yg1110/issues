@@ -1,4 +1,4 @@
-import { GitHubLabel } from "./github-labels";
+import { GitHubLabel } from "./github-label";
 import { GitHubSimpleUser } from "./github-user";
 
 export interface GitHubIssuesRequest {

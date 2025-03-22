@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 import { getGithubLabels } from "@/api/repos/get-github-labels";
-import { GitHubLabelsRequest } from "@/schemas/github-labels";
+import { GitHubLabelsRequest } from "@/schemas/github-label";
 
 import { TOAST_DURATION, TOAST_POSITION } from "../utils/constants";
 

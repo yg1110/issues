@@ -1,5 +1,5 @@
 import { GitHubMilestone } from "@/schemas/github-issue";
-import { GitHubLabel } from "@/schemas/github-labels";
+import { GitHubLabel } from "@/schemas/github-label";
 import { GitHubSimpleUser } from "@/schemas/github-user";
 import IssueLabel from "@/shared/components/IssueLabel";
 import MilestoneIcon from "@/shared/icons/MilestoneIcon";

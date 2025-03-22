@@ -1,4 +1,4 @@
-import { GitHubAssigneesRequest } from "@/schemas/github-assignees";
+import { GitHubAssigneesRequest } from "@/schemas/github-assignee";
 import { GitHubSimpleUser } from "@/schemas/github-user";
 
 import { ApiResult } from "../api-result";
