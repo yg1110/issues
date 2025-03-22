@@ -1,3 +1,4 @@
+import { GitHubComment } from "../../../../../schemas/github-comment";
 import { GitHubIssue } from "../../../../../schemas/github-issue";
 import IssueBody from "./IssueBody";
 import IssueSideBar from "./IssueSideBar";
@@ -5,15 +6,19 @@ import IssueTitle from "./IssueTitle";
 
 type Props = {
   issue?: GitHubIssue;
+  comments?: GitHubComment[];
 };
 
-export default function IssueDetail({ issue }: Props) {
+export default function IssueDetail({ issue, comments }: Props) {
   if (!issue) return;
   return (
     <div className="max-w-6xl mx-auto px-4 pt-2">
       <IssueTitle title={issue.title} />
       <div className="flex flex-col md:flex-row gap-6 mb-8">
-        <IssueBody {...issue} />
+        <div className="w-full md:w-[80%] order-2 md:order-1">
+          <IssueBody {...issue} />
+          {comments?.map((comment) => <IssueBody key={comment.id} {...comment} />)}
+        </div>
         <IssueSideBar {...issue} />
       </div>
     </div>

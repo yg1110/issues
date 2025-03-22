@@ -4,6 +4,7 @@ import IssuesTabLabel from "../../../../shared/components/IssuesTabLabel";
 import TabList from "../../../../shared/components/TabList";
 import { usePageInfoWithHelmet } from "../../../../shared/hooks/usePageInfo";
 import IssueDetail from "./components/IssueDetail";
+import { useGithubComments } from "./hooks/use-github-comments";
 import { useGithubIssue } from "./hooks/use-github-Issues";
 
 export default function IssuesDetailPage() {
@@ -16,10 +17,16 @@ export default function IssuesDetailPage() {
     repo: repo,
   });
 
+  const { data: comments } = useGithubComments({
+    owner: user,
+    repo: repo,
+    issueNumber: issue?.number || 0,
+  });
+
   const tabs = [
     {
       label: <IssuesTabLabel />,
-      contents: <IssueDetail issue={issue} />,
+      contents: <IssueDetail issue={issue} comments={comments} />,
     },
   ];
 
