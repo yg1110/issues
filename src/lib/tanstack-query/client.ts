@@ -6,7 +6,9 @@ function makeQueryClient() {
   return new QueryClient({
     defaultOptions: {
       queries: {
+        retry: 0,
         staleTime: defaultStaleTime,
+        refetchOnWindowFocus: false,
       },
     },
     queryCache: new QueryCache({}),

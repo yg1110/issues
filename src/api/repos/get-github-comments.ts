@@ -10,12 +10,18 @@ export const getGithubComments = async (request: Request): Promise<ApiResult<Res
     const response = await fetch(url);
     const result = await response.json();
 
-    if (result) {
+    if (response.ok) {
       return {
         status: "success",
         data: result,
       };
     } else {
+      if (result.message) {
+        return {
+          status: "error",
+          error: result.message,
+        };
+      }
       return {
         status: "error",
         error: "데이터 형식이 올바르지 않습니다.",
