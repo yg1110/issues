@@ -28,7 +28,6 @@ export default function IssuesList({ issues }: Props) {
     setItems(items);
   }, [issues]);
 
-  if (!issues) return;
   return (
     <div className="flex flex-col gap-2">
       <div className="flex justify-end">

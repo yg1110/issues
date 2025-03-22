@@ -38,7 +38,6 @@ export interface GitHubIssue {
   closed_by: GitHubUser | null;
   reactions: GitHubReactions;
   timeline_url: string;
-  performed_via_github_app: null;
   state_reason: string | null;
 }
 
