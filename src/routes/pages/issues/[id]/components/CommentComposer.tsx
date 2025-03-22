@@ -1,3 +1,4 @@
+import MDEditor from "@uiw/react-md-editor";
 import { useState } from "react";
 
 export function CommentComposer({
@@ -9,7 +10,11 @@ export function CommentComposer({
   username: string;
   onSubmit: (text: string) => void;
 }) {
-  const [text, setText] = useState("");
+  const [comment, setComment] = useState<string>("");
+
+  const onChangeComment = (value: string | undefined) => {
+    setComment(value || "");
+  };
 
   return (
     <div className="flex gap-4 rounded-md bg-white">
@@ -22,23 +27,19 @@ export function CommentComposer({
           Add a comment
         </h2>
 
-        <textarea
-          className="w-full min-h-[100px] border border-gray-200 rounded-md p-2 text-sm resize-y"
-          placeholder="Use Markdown to format your comment"
-          aria-labelledby="comment-composer-heading"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        />
+        <div data-color-mode="light" className="w-full break-words">
+          <MDEditor value={comment} onChange={onChangeComment} />
+        </div>
 
         <div className="flex justify-end gap-2">
           <button
             type="button"
             className="bg-blue-600 text-white text-sm px-4 py-1.5 rounded disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={() => {
-              onSubmit(text);
-              setText("");
+              onSubmit(comment);
+              setComment("");
             }}
-            disabled={text.trim() === ""}
+            disabled={comment.trim() === ""}
           >
             Comment
           </button>
