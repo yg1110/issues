@@ -9,6 +9,15 @@ export interface GitHubIssueRequest {
   owner: string;
   repo: string;
 }
+
+export interface GitHubChangeIssueRequest {
+  owner: string;
+  repo: string;
+  token: string;
+  title: string;
+  body?: string;
+}
+
 export interface GitHubIssue {
   url: string;
   repository_url: string;

@@ -8,12 +8,12 @@ import IssueCreate from "./components/IssueCreate";
 export default function IssuesCreatePage() {
   const { HelmetTitle } = usePageInfoWithHelmet();
 
-  const { data: user } = useGithubUser(import.meta.env.VITE_GITHUB_TOKEN);
+  const { data: userInfo } = useGithubUser(import.meta.env.VITE_GITHUB_TOKEN);
 
   const tabs = [
     {
       label: <IssuesTabLabel />,
-      contents: <IssueCreate user={user} />,
+      contents: <IssueCreate userInfo={userInfo} />,
     },
   ];
 

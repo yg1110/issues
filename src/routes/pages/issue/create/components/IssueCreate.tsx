@@ -2,15 +2,20 @@ import { useState } from "react";
 
 import { GitHubUser } from "@/schemas/github-user";
 import Button from "@/shared/components/Button";
+import { useCreateGithubIssue } from "@/shared/hooks/useCreateGithubIssue";
+import { usePageInfoWithHelmet } from "@/shared/hooks/usePageInfoWithHelmet";
 
 import BodyEditor from "./BodyEditor";
 import IssueTitle from "./IssueTitle";
 import UserProfile from "./UserProfile";
 
 interface Props {
-  user?: GitHubUser;
+  userInfo?: GitHubUser;
 }
-export default function IssueCreate({ user }: Props) {
+export default function IssueCreate({ userInfo }: Props) {
+  const { user, repo } = usePageInfoWithHelmet();
+  const { mutate: createGithubIssue } = useCreateGithubIssue();
+
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
@@ -23,20 +28,27 @@ export default function IssueCreate({ user }: Props) {
   };
 
   const handleSubmit = () => {
-    console.log("title :>> ", title);
-    console.log("body :>> ", body);
+    if (!user) return;
+    createGithubIssue({
+      owner: user,
+      repo: repo,
+      body: body,
+      title: title,
+      token: import.meta.env.VITE_GITHUB_TOKEN,
+    });
   };
 
   const handleCancel = () => {
     window.history.back();
   };
 
+  if (!userInfo) return;
   return (
     <div className="max-w-6xl mx-auto px-4 pt-2">
       <div className="flex flex-col md:flex-row gap-6 mb-8">
         <div className="w-full md:w-[80%] order-1">
           <div className="flex items-start gap-4 bg-white rounded-md">
-            {user && <UserProfile user={user} />}
+            {userInfo && <UserProfile user={userInfo} />}
             <div className="flex flex-col flex-1 gap-4">
               <IssueTitle value={title} onChange={handleTitleChange} />
               <BodyEditor value={body} onChange={handleBodyChange} />
