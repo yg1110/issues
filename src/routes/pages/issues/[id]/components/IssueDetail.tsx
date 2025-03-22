@@ -1,5 +1,6 @@
 import { GitHubComment } from "../../../../../schemas/github-comment";
 import { GitHubIssue } from "../../../../../schemas/github-issue";
+import { CommentComposer } from "./CommentComposer";
 import IssueBody from "./IssueBody";
 import IssueSideBar from "./IssueSideBar";
 import IssueTitle from "./IssueTitle";
@@ -11,6 +12,7 @@ type Props = {
 
 export default function IssueDetail({ issue, comments }: Props) {
   if (!issue) return;
+  if (!comments) return;
   return (
     <div className="max-w-6xl mx-auto px-4 pt-2">
       <IssueTitle title={issue.title} />
@@ -18,6 +20,11 @@ export default function IssueDetail({ issue, comments }: Props) {
         <div className="w-full md:w-[80%] order-2 md:order-1">
           <IssueBody {...issue} />
           {comments?.map((comment) => <IssueBody key={comment.id} {...comment} />)}
+          <CommentComposer
+            avatarUrl={issue.user.avatar_url}
+            username={issue.user.login}
+            onSubmit={(comment) => console.log("새 댓글:", comment)}
+          />
         </div>
         <IssueSideBar {...issue} />
       </div>
