@@ -1,9 +1,9 @@
 import { createBrowserRouter, redirect, RouterProvider } from "react-router-dom";
 
 import RootLayout from "./layouts/Root";
+import IssuesCreatePage from "./pages/issue/create";
 import IssuesDetailPage from "./pages/issue/detail";
 import IssuesPage from "./pages/issue/list";
-import NewIssuesPage from "./pages/issue/new";
 
 const router = createBrowserRouter([
   {
@@ -14,8 +14,8 @@ const router = createBrowserRouter([
         element: <IssuesPage />,
       },
       {
-        path: "/:user/:repo/issues/new",
-        element: <NewIssuesPage />,
+        path: "/:user/:repo/issues/create",
+        element: <IssuesCreatePage />,
       },
       {
         path: "/:user/:repo/issues/:id",
