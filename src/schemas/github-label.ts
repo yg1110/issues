@@ -3,6 +3,12 @@ export interface GitHubLabelsRequest {
   repo: string;
 }
 
+export interface GitHubUpdateLabelsRequest extends GitHubLabelsRequest {
+  token: string;
+  issueNumber: number;
+  labels: string[];
+}
+
 export interface GitHubLabel {
   id: number;
   node_id: string;

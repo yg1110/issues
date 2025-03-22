@@ -7,10 +7,14 @@ import AssigneesDropdown from "@/shared/components/AssigneesDropdown";
 import IssueLabel from "@/shared/components/IssueLabel";
 import LabelsDropdown from "@/shared/components/LabelsDropdown";
 
+import { usePageInfoWithHelmet } from "../hooks/usePageInfoWithHelmet";
+import { useUpdateGithubIssue } from "../hooks/useUpdateGithubIssue";
+import { useUpdateGithubLabels } from "../hooks/useUpdateGithubLabels";
 import MilestoneIcon from "../icons/MilestoneIcon";
-import MileStoneDropdown from "./milestoneDropdown";
+import MileStoneDropdown from "./MileStoneDropdown";
 
 interface Props {
+  issueNumber?: number;
   currentAssignees: GitHubSimpleUser[];
   currentMilestone: GitHubMilestone | null;
   currentLabels: GitHubLabel[];
@@ -19,6 +23,7 @@ interface Props {
   labels: GitHubLabel[];
 }
 export default function IssueSideBar({
+  issueNumber,
   currentAssignees,
   currentMilestone,
   currentLabels,
@@ -26,9 +31,44 @@ export default function IssueSideBar({
   milestones,
   labels,
 }: Props) {
+  const { user, repo } = usePageInfoWithHelmet();
+
   const [selectedAssignees, setSelectedAssignees] = useState<string[]>([]);
   const [selectedMilestone, setSelectedMilestone] = useState<string | null>(null);
   const [selectedLabel, setSelectedLabel] = useState<string[]>([]);
+
+  const { mutate: updateGithubIssue } = useUpdateGithubIssue(issueNumber || 0);
+  const { mutate: updateGithubLabels } = useUpdateGithubLabels();
+
+  const handleUpdateAssignees = (assignees: string[]) => {
+    setSelectedAssignees(assignees);
+    if (!issueNumber) return;
+    updateGithubIssue({
+      id: issueNumber,
+      owner: user,
+      repo: repo,
+      token: import.meta.env.VITE_GITHUB_TOKEN,
+      assignees: assignees,
+    });
+  };
+
+  const handleUpdateLabels = (labels: string[]) => {
+    setSelectedLabel(labels);
+    if (!issueNumber) return;
+    updateGithubLabels({
+      owner: user,
+      repo: repo,
+      token: import.meta.env.VITE_GITHUB_TOKEN,
+      issueNumber: issueNumber,
+      labels: labels,
+    });
+  };
+
+  useEffect(() => {
+    setSelectedAssignees(currentAssignees.map((assignee) => assignee.login));
+    setSelectedMilestone(currentMilestone ? currentMilestone.id.toString() : null);
+    setSelectedLabel(currentLabels.map((label) => label.name.toString()));
+  }, [currentAssignees, currentMilestone, currentLabels]);
 
   const formattedAssigneesLabels = assignees.map((assignee) => ({
     id: assignee.id.toString(),
@@ -43,18 +83,14 @@ export default function IssueSideBar({
     name: milestone.title,
   }));
 
-  useEffect(() => {
-    setSelectedAssignees(currentAssignees.map((assignee) => assignee.id.toString()));
-    setSelectedMilestone(currentMilestone ? currentMilestone.id.toString() : null);
-    setSelectedLabel(currentLabels.map((label) => label.id.toString()));
-  }, [currentAssignees, currentMilestone, currentLabels]);
+  console.log("selectedAssignees :>> ", selectedAssignees);
   return (
     <div className="w-full md:w-[30%] order-1 md:order-2 flex flex-col gap-4 md:gap-0">
       <div className="bg-white md:pb-4 md:mb-4 md:border-b md:border-[#d1d9e0b3] flex flex-row gap-2 md:flex-col items-center md:items-baseline">
         <AssigneesDropdown
           labels={formattedAssigneesLabels}
           selected={selectedAssignees}
-          onChange={setSelectedAssignees}
+          onChange={handleUpdateAssignees}
         />
         {currentAssignees.length > 0 ? (
           <div className="flex flex-col gap-2">
@@ -94,7 +130,7 @@ export default function IssueSideBar({
       </div>
 
       <div className="bg-white flex flex-row gap-2 md:flex-col items-center md:items-baseline">
-        <LabelsDropdown labels={formattedLabels} selected={selectedLabel} onChange={setSelectedLabel} />
+        <LabelsDropdown labels={formattedLabels} selected={selectedLabel} onChange={handleUpdateLabels} />
         {currentLabels.length > 0 ? (
           <div className="flex flex-wrap gap-2 items-center">
             {currentLabels.map((label) => (

@@ -11,7 +11,7 @@ type Props = {
   selected: string[];
   placeholder?: string;
   footer?: React.ReactNode;
-  onChange: (selectedIds: string[]) => void;
+  onChange: (selectedItems: string[]) => void;
 };
 
 export default function MultiSelector({
@@ -26,11 +26,12 @@ export default function MultiSelector({
 
   const filteredLabels = labels.filter((label) => label.name.toLowerCase().includes(filter.toLowerCase()));
 
-  const toggleLabel = (id: string) => {
-    if (selected.includes(id)) {
-      onChange(selected.filter((item) => item !== id));
+  const toggleLabel = (name: string) => {
+    const isChecked = selected.includes(name);
+    if (isChecked) {
+      onChange(selected.filter((item) => item !== name));
     } else {
-      onChange([...selected, id]);
+      onChange([...selected, name]);
     }
   };
 
@@ -56,12 +57,12 @@ export default function MultiSelector({
           <li
             key={label.id}
             className="flex items-start gap-2 p-2 rounded-md hover:bg-gray-100 cursor-pointer"
-            onClick={() => toggleLabel(label.id)}
+            onClick={() => toggleLabel(label.name)}
           >
             <input
               type="checkbox"
-              checked={selected.includes(label.id)}
-              onChange={() => toggleLabel(label.id)}
+              checked={selected.includes(label.name)}
+              onChange={() => toggleLabel(label.name)}
               className="mt-1"
             />
             <div className="font-medium">{label.name}</div>

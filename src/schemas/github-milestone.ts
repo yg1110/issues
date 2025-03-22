@@ -5,6 +5,12 @@ export interface GitHubMilestonesRequest {
   repo: string;
 }
 
+export interface GitHubUpdateMilestoneRequest extends GitHubMilestonesRequest {
+  token: string;
+  issueNumber: number;
+  milestone: string;
+}
+
 export interface GitHubMilestone {
   url: string;
   html_url: string;

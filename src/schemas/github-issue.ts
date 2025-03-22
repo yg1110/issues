@@ -18,8 +18,9 @@ export interface GitHubCreateIssueRequest {
   owner: string;
   repo: string;
   token: string;
-  title: string;
+  title?: string;
   body?: string;
+  assignees?: string[];
 }
 
 export interface GitHubUpdateIssueRequest extends GitHubCreateIssueRequest {

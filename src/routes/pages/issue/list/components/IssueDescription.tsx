@@ -1,4 +1,4 @@
-import { GitHubMilestone } from "@/schemas/github-issue";
+import { GitHubMilestone } from "@/schemas/github-milestone";
 import { GitHubSimpleUser } from "@/schemas/github-user";
 import MilestoneIcon from "@/shared/icons/MilestoneIcon";
 

@@ -45,6 +45,7 @@ export default function IssueDetail({ issue, comments, assignees, labels, milest
           <CommentEditor avatarUrl={issue.user.avatar_url} username={issue.user.login} onSubmit={writeCommand} />
         </div>
         <IssueSideBar
+          issueNumber={issue.number}
           currentAssignees={issue.assignees}
           currentMilestone={issue.milestone}
           currentLabels={issue.labels}

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import { getGithubMilestones } from "@/api/repos/get-github-milestons";
+import { getGithubMilestones } from "@/api/repos/get-github-mileStones";
 import { GitHubMilestonesRequest } from "@/schemas/github-milestone";
 
 import { TOAST_DURATION, TOAST_POSITION } from "../utils/constants";
