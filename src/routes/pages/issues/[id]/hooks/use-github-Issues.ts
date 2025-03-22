@@ -12,7 +12,7 @@ export const useGithubIssue = (request: GitHubIssueRequest) => {
       if (res.status === "error") {
         toast(res.error, {
           duration: 2000,
-          position: "bottom-center",
+          position: "top-right",
         });
         throw new Error(res.error);
       }

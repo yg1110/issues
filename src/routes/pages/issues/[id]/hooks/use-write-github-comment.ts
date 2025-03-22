@@ -18,7 +18,7 @@ export const useWriteGithubComment = () => {
     onSuccess: () => {
       toast.success("댓글이 등록되었습니다.", {
         duration: 2000,
-        position: "bottom-center",
+        position: "top-right",
       });
       queryClient.invalidateQueries({
         queryKey: ["githubComments"],
@@ -27,7 +27,7 @@ export const useWriteGithubComment = () => {
     onError: (error: Error) => {
       toast.error(error.message, {
         duration: 2000,
-        position: "bottom-center",
+        position: "top-right",
       });
     },
   });
