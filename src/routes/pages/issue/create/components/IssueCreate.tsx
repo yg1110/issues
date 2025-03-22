@@ -1,38 +1,54 @@
-export default function IssuesCreate() {
+import { useState } from "react";
+
+import { GitHubUser } from "@/schemas/github-user";
+import Button from "@/shared/components/Button";
+
+import BodyEditor from "./BodyEditor";
+import IssueTitle from "./IssueTitle";
+import UserProfile from "./UserProfile";
+
+interface Props {
+  user?: GitHubUser;
+}
+export default function IssueCreate({ user }: Props) {
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+
+  const handleTitleChange = (value: string) => {
+    setTitle(value);
+  };
+
+  const handleBodyChange = (value: string) => {
+    setBody(value);
+  };
+
+  const handleSubmit = () => {
+    console.log("title :>> ", title);
+    console.log("body :>> ", body);
+  };
+
+  const handleCancel = () => {
+    window.history.back();
+  };
+
   return (
     <div className="max-w-6xl mx-auto px-4 pt-2">
       <div className="flex flex-col md:flex-row gap-6 mb-8">
         <div className="w-full md:w-[80%] order-1">
           <div className="flex items-start gap-4 bg-white rounded-md">
+            {user && <UserProfile user={user} />}
             <div className="flex flex-col flex-1 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Add a title <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Title"
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-200"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Add a description</label>
-                <textarea
-                  rows={10}
-                  placeholder="Type your description here..."
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-200 resize-y"
-                ></textarea>
-              </div>
+              <IssueTitle value={title} onChange={handleTitleChange} />
+              <BodyEditor value={body} onChange={handleBodyChange} />
 
               <div className="flex items-center justify-end">
                 <div className="flex gap-2">
-                  <button className="px-4 py-2 text-sm rounded-md border border-gray-300 text-gray-700 hover:bg-gray-100">
+                  <Button variant="outline" onClick={handleCancel}>
                     Cancel
-                  </button>
-                  <button className="px-4 py-2 text-sm rounded-md bg-blue-600 text-white hover:bg-blue-700">
+                  </Button>
+                  <Button variant="secondary" disabled={!title || !body} onClick={handleSubmit}>
                     Create
-                  </button>
+                  </Button>
                 </div>
               </div>
             </div>
