@@ -1,3 +1,4 @@
+import { GitHubLabel } from "./github-labels";
 import { GitHubSimpleUser } from "./github-user";
 
 export interface GitHubIssuesRequest {
@@ -54,16 +55,6 @@ export interface GitHubIssue {
   reactions: GitHubReactions;
   timeline_url: string;
   state_reason: string | null;
-}
-
-export interface GitHubLabel {
-  id: number;
-  node_id: string;
-  url: string;
-  name: string;
-  color: string;
-  default: boolean;
-  description: string;
 }
 
 export interface GitHubMilestone {

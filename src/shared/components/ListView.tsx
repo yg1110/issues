@@ -1,4 +1,4 @@
-import { GitHubLabel } from "@/schemas/github-issue";
+import { GitHubLabel } from "@/schemas/github-labels";
 import { useInfoStore } from "@/store/info";
 
 import IssueLabel from "./IssueLabel";
