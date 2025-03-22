@@ -38,7 +38,9 @@ export default function IssuesEditPage() {
   const tabs = [
     {
       label: <IssuesTabLabel />,
-      contents: <IssueEdit issue={issue} userInfo={userInfo} />,
+      contents: (
+        <IssueEdit issue={issue} userInfo={userInfo} assignees={assignees} labels={labels} milestones={milestones} />
+      ),
     },
   ];
 

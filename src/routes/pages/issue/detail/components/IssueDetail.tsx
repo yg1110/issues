@@ -1,5 +1,8 @@
 import { GitHubComment } from "@/schemas/github-comment";
 import { GitHubIssue } from "@/schemas/github-issue";
+import { GitHubLabel } from "@/schemas/github-label";
+import { GitHubMilestone } from "@/schemas/github-milestone";
+import { GitHubSimpleUser } from "@/schemas/github-user";
 import IssueSideBar from "@/shared/components/IssueSideBar";
 import { useCreateGithubComment } from "@/shared/hooks/useCreateGithubComment";
 import { usePageInfoWithHelmet } from "@/shared/hooks/usePageInfoWithHelmet";
@@ -11,9 +14,12 @@ import IssueTitle from "./IssueTitle";
 type Props = {
   issue?: GitHubIssue;
   comments?: GitHubComment[];
+  assignees?: GitHubSimpleUser[];
+  labels?: GitHubLabel[];
+  milestones?: GitHubMilestone[];
 };
 
-export default function IssueDetail({ issue, comments }: Props) {
+export default function IssueDetail({ issue, comments, assignees, labels, milestones }: Props) {
   const { user, repo } = usePageInfoWithHelmet();
   const { mutate: createGithubComment } = useCreateGithubComment();
 
@@ -38,7 +44,14 @@ export default function IssueDetail({ issue, comments }: Props) {
           {comments?.map((comment) => <IssueBody key={comment.id} {...comment} />)}
           <CommentEditor avatarUrl={issue.user.avatar_url} username={issue.user.login} onSubmit={writeCommand} />
         </div>
-        <IssueSideBar {...issue} />
+        <IssueSideBar
+          currentAssignees={issue.assignees}
+          currentMilestone={issue.milestone}
+          currentLabels={issue.labels}
+          assignees={assignees || []}
+          milestones={milestones || []}
+          labels={labels || []}
+        />
       </div>
     </div>
   );

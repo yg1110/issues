@@ -2,8 +2,11 @@ import { useParams } from "react-router-dom";
 
 import IssuesTabLabel from "@/shared/components/IssuesTabLabel";
 import TabList from "@/shared/components/TabList";
+import { useGithubAssignees } from "@/shared/hooks/useGithubAssignees";
 import { useGithubComments } from "@/shared/hooks/useGithubComments";
 import { useGithubIssue } from "@/shared/hooks/useGithubIssue";
+import { useGithubLabels } from "@/shared/hooks/useGithubLabels";
+import { useGithubMilestones } from "@/shared/hooks/useGithubMilestons";
 import { usePageInfoWithHelmet } from "@/shared/hooks/usePageInfoWithHelmet";
 
 import IssueDetail from "./components/IssueDetail";
@@ -17,7 +20,18 @@ export default function IssuesDetailPage() {
     owner: user,
     repo: repo,
   });
-
+  const { data: assignees } = useGithubAssignees({
+    owner: user,
+    repo: repo,
+  });
+  const { data: labels } = useGithubLabels({
+    owner: user,
+    repo: repo,
+  });
+  const { data: milestones } = useGithubMilestones({
+    owner: user,
+    repo: repo,
+  });
   const { data: comments } = useGithubComments({
     owner: user,
     repo: repo,
@@ -27,7 +41,9 @@ export default function IssuesDetailPage() {
   const tabs = [
     {
       label: <IssuesTabLabel />,
-      contents: <IssueDetail issue={issue} comments={comments} />,
+      contents: (
+        <IssueDetail issue={issue} comments={comments} assignees={assignees} labels={labels} milestones={milestones} />
+      ),
     },
   ];
 

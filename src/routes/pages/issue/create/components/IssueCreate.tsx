@@ -1,8 +1,11 @@
 import { useState } from "react";
 
-import { GitHubUser } from "@/schemas/github-user";
+import { GitHubLabel } from "@/schemas/github-label";
+import { GitHubMilestone } from "@/schemas/github-milestone";
+import { GitHubSimpleUser, GitHubUser } from "@/schemas/github-user";
 import BodyEditor from "@/shared/components/BodyEditor";
 import Button from "@/shared/components/Button";
+import IssueSideBar from "@/shared/components/IssueSideBar";
 import IssueTitle from "@/shared/components/IssueTitle";
 import UserProfile from "@/shared/components/UserProfile";
 import { useCreateGithubIssue } from "@/shared/hooks/useCreateGithubIssue";
@@ -10,8 +13,11 @@ import { usePageInfoWithHelmet } from "@/shared/hooks/usePageInfoWithHelmet";
 
 interface Props {
   userInfo?: GitHubUser;
+  assignees?: GitHubSimpleUser[];
+  labels?: GitHubLabel[];
+  milestones?: GitHubMilestone[];
 }
-export default function IssueCreate({ userInfo }: Props) {
+export default function IssueCreate({ userInfo, assignees, labels, milestones }: Props) {
   const { user, repo } = usePageInfoWithHelmet();
   const { mutate: createGithubIssue } = useCreateGithubIssue();
 
@@ -60,6 +66,14 @@ export default function IssueCreate({ userInfo }: Props) {
             </div>
           </div>
         </div>
+        <IssueSideBar
+          currentAssignees={[]}
+          currentMilestone={null}
+          currentLabels={[]}
+          assignees={assignees || []}
+          milestones={milestones || []}
+          labels={labels || []}
+        />
       </div>
     </div>
   );

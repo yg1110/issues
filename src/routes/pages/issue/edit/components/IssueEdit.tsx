@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 
 import { GitHubIssue } from "@/schemas/github-issue";
-import { GitHubUser } from "@/schemas/github-user";
+import { GitHubLabel } from "@/schemas/github-label";
+import { GitHubMilestone } from "@/schemas/github-milestone";
+import { GitHubSimpleUser, GitHubUser } from "@/schemas/github-user";
 import BodyEditor from "@/shared/components/BodyEditor";
 import Button from "@/shared/components/Button";
+import IssueSideBar from "@/shared/components/IssueSideBar";
 import IssueTitle from "@/shared/components/IssueTitle";
 import UserProfile from "@/shared/components/UserProfile";
 import { usePageInfoWithHelmet } from "@/shared/hooks/usePageInfoWithHelmet";
@@ -12,8 +15,11 @@ import { useUpdateGithubIssue } from "@/shared/hooks/useUpdateGithubIssue";
 interface Props {
   issue?: GitHubIssue;
   userInfo?: GitHubUser;
+  assignees?: GitHubSimpleUser[];
+  labels?: GitHubLabel[];
+  milestones?: GitHubMilestone[];
 }
-export default function IssueEdit({ issue, userInfo }: Props) {
+export default function IssueEdit({ issue, userInfo, assignees, labels, milestones }: Props) {
   const { user, repo } = usePageInfoWithHelmet();
   const { mutate: updateGithubIssue } = useUpdateGithubIssue(issue?.number || 0);
 
@@ -69,6 +75,14 @@ export default function IssueEdit({ issue, userInfo }: Props) {
             </div>
           </div>
         </div>
+        <IssueSideBar
+          currentAssignees={issue.assignees}
+          currentMilestone={issue.milestone}
+          currentLabels={issue.labels}
+          assignees={assignees || []}
+          milestones={milestones || []}
+          labels={labels || []}
+        />
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { GitHubLabel } from "@/schemas/github-label";
 import { GitHubMilestone } from "@/schemas/github-milestone";
@@ -11,11 +11,21 @@ import MilestoneIcon from "../icons/MilestoneIcon";
 import MileStoneDropdown from "./milestoneDropdown";
 
 interface Props {
+  currentAssignees: GitHubSimpleUser[];
+  currentMilestone: GitHubMilestone | null;
+  currentLabels: GitHubLabel[];
   assignees: GitHubSimpleUser[];
-  milestone: GitHubMilestone | null;
+  milestones: GitHubMilestone[];
   labels: GitHubLabel[];
 }
-export default function IssueSideBar({ assignees, milestone, labels }: Props) {
+export default function IssueSideBar({
+  currentAssignees,
+  currentMilestone,
+  currentLabels,
+  assignees,
+  milestones,
+  labels,
+}: Props) {
   const [selectedAssignees, setSelectedAssignees] = useState<string[]>([]);
   const [selectedMilestone, setSelectedMilestone] = useState<string | null>(null);
   const [selectedLabel, setSelectedLabel] = useState<string[]>([]);
@@ -28,11 +38,16 @@ export default function IssueSideBar({ assignees, milestone, labels }: Props) {
     id: label.id.toString(),
     name: label.name,
   }));
-  const formattedMilestones = {
-    id: milestone?.id.toString() || "",
-    name: milestone?.title || "",
-  };
+  const formattedMilestones = milestones.map((milestone) => ({
+    id: milestone.id.toString(),
+    name: milestone.title,
+  }));
 
+  useEffect(() => {
+    setSelectedAssignees(currentAssignees.map((assignee) => assignee.id.toString()));
+    setSelectedMilestone(currentMilestone ? currentMilestone.id.toString() : null);
+    setSelectedLabel(currentLabels.map((label) => label.id.toString()));
+  }, [currentAssignees, currentMilestone, currentLabels]);
   return (
     <div className="w-full md:w-[30%] order-1 md:order-2 flex flex-col gap-4 md:gap-0">
       <div className="bg-white md:pb-4 md:mb-4 md:border-b md:border-[#d1d9e0b3] flex flex-row gap-2 md:flex-col items-center md:items-baseline">
@@ -41,9 +56,9 @@ export default function IssueSideBar({ assignees, milestone, labels }: Props) {
           selected={selectedAssignees}
           onChange={setSelectedAssignees}
         />
-        {assignees.length > 0 ? (
+        {currentAssignees.length > 0 ? (
           <div className="flex flex-col gap-2">
-            {assignees.map((user) => (
+            {currentAssignees.map((user) => (
               <a
                 key={user.id}
                 href={`${user.html_url}`}
@@ -62,20 +77,16 @@ export default function IssueSideBar({ assignees, milestone, labels }: Props) {
       </div>
 
       <div className="bg-white md:pb-4 md:mb-4 md:border-b md:border-[#d1d9e0b3] flex flex-row gap-2 md:flex-col items-center md:items-baseline">
-        <MileStoneDropdown
-          options={[formattedMilestones]}
-          selected={selectedMilestone}
-          onChange={setSelectedMilestone}
-        />
-        {milestone ? (
+        <MileStoneDropdown options={formattedMilestones} selected={selectedMilestone} onChange={setSelectedMilestone} />
+        {currentMilestone ? (
           <a
-            href={milestone.html_url}
+            href={currentMilestone.html_url}
             className="flex gap-1 items-center hover:text-blue-600"
             target="_blank"
             rel="noopener noreferrer"
           >
             <MilestoneIcon />
-            {milestone.title}
+            {currentMilestone.title}
           </a>
         ) : (
           <p className="text-gray-400 text-sm">No milestone</p>
@@ -84,9 +95,9 @@ export default function IssueSideBar({ assignees, milestone, labels }: Props) {
 
       <div className="bg-white flex flex-row gap-2 md:flex-col items-center md:items-baseline">
         <LabelsDropdown labels={formattedLabels} selected={selectedLabel} onChange={setSelectedLabel} />
-        {labels.length > 0 ? (
+        {currentLabels.length > 0 ? (
           <div className="flex flex-wrap gap-2 items-center">
-            {labels.map((label) => (
+            {currentLabels.map((label) => (
               <IssueLabel key={label.id} text={label.name} color={`#${label.color}`} />
             ))}
           </div>
