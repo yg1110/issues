@@ -1,4 +1,5 @@
-import { GitHubReactions, GitHubUser } from "./github-issue";
+import { GitHubReactions } from "./github-issue";
+import { GitHubSimpleUser } from "./github-user";
 
 export interface GitHubCommentRequest {
   owner: string;
@@ -17,7 +18,7 @@ export interface GitHubComment {
   issue_url: string;
   id: number;
   node_id: string;
-  user: GitHubUser;
+  user: GitHubSimpleUser;
   created_at: string;
   updated_at: string;
   author_association: "CONTRIBUTOR" | "MEMBER" | "OWNER" | "NONE" | string;

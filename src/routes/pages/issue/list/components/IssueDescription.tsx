@@ -1,8 +1,9 @@
-import { GitHubMilestone, GitHubUser } from "@/schemas/github-issue";
+import { GitHubMilestone } from "@/schemas/github-issue";
+import { GitHubSimpleUser } from "@/schemas/github-user";
 import MilestoneIcon from "@/shared/icons/MilestoneIcon";
 
 type Props = {
-  user: GitHubUser;
+  user: GitHubSimpleUser;
   milestone: GitHubMilestone | null;
 };
 

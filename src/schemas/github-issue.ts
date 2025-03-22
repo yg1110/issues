@@ -1,3 +1,5 @@
+import { GitHubSimpleUser } from "./github-user";
+
 export interface GitHubIssuesRequest {
   owner: string;
   repo: string;
@@ -33,12 +35,12 @@ export interface GitHubIssue {
   node_id: string;
   number: number;
   title: string;
-  user: GitHubUser;
+  user: GitHubSimpleUser;
   labels: GitHubLabel[];
   state: "open" | "closed";
   locked: boolean;
-  assignee: GitHubUser | null;
-  assignees: GitHubUser[];
+  assignee: GitHubSimpleUser | null;
+  assignees: GitHubSimpleUser[];
   milestone: GitHubMilestone | null;
   comments: number;
   created_at: string;
@@ -48,32 +50,10 @@ export interface GitHubIssue {
   sub_issues_summary: SubIssuesSummary;
   active_lock_reason: string | null;
   body: string | null;
-  closed_by: GitHubUser | null;
+  closed_by: GitHubSimpleUser | null;
   reactions: GitHubReactions;
   timeline_url: string;
   state_reason: string | null;
-}
-
-export interface GitHubUser {
-  login: string;
-  id: number;
-  node_id: string;
-  avatar_url: string;
-  gravatar_id: string;
-  url: string;
-  html_url: string;
-  followers_url: string;
-  following_url: string;
-  gists_url: string;
-  starred_url: string;
-  subscriptions_url: string;
-  organizations_url: string;
-  repos_url: string;
-  events_url: string;
-  received_events_url: string;
-  type: "User" | "Organization";
-  user_view_type?: string;
-  site_admin: boolean;
 }
 
 export interface GitHubLabel {
@@ -95,7 +75,7 @@ export interface GitHubMilestone {
   number: number;
   title: string;
   description: string | null;
-  creator: GitHubUser;
+  creator: GitHubSimpleUser;
   open_issues: number;
   closed_issues: number;
   state: "open" | "closed";

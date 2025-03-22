@@ -1,10 +1,10 @@
 import MDEditor from "@uiw/react-md-editor";
 
-import { GitHubUser } from "@/schemas/github-issue";
+import { GitHubSimpleUser } from "@/schemas/github-user";
 
 interface Props {
   body: string | null;
-  user: GitHubUser;
+  user: GitHubSimpleUser;
   created_at: string;
 }
 

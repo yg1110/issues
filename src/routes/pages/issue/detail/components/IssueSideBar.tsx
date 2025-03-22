@@ -1,9 +1,10 @@
-import { GitHubLabel, GitHubMilestone, GitHubUser } from "@/schemas/github-issue";
+import { GitHubLabel, GitHubMilestone } from "@/schemas/github-issue";
+import { GitHubSimpleUser } from "@/schemas/github-user";
 import IssueLabel from "@/shared/components/IssueLabel";
 import MilestoneIcon from "@/shared/icons/MilestoneIcon";
 
 interface Props {
-  assignees: GitHubUser[];
+  assignees: GitHubSimpleUser[];
   milestone: GitHubMilestone | null;
   labels: GitHubLabel[];
 }
