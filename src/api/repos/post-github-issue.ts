@@ -1,8 +1,8 @@
-import { GitHubChangeIssueRequest } from "@/schemas/github-issue";
+import { GitHubCreateIssueRequest } from "@/schemas/github-issue";
 
 import { ApiResult } from "../api-result";
 
-type Request = GitHubChangeIssueRequest;
+type Request = GitHubCreateIssueRequest;
 export const postGithubIssue = async (request: Request): Promise<ApiResult<void>> => {
   const { owner, repo, token, ...rest } = request;
   try {

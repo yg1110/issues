@@ -10,7 +10,7 @@ export interface GitHubIssueRequest {
   repo: string;
 }
 
-export interface GitHubChangeIssueRequest {
+export interface GitHubCreateIssueRequest {
   owner: string;
   repo: string;
   token: string;

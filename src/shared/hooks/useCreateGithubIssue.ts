@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 
 import { postGithubIssue } from "@/api/repos/post-github-issue";
 import { getQueryClient } from "@/lib/tanstack-query/client";
-import { GitHubChangeIssueRequest } from "@/schemas/github-issue";
+import { GitHubCreateIssueRequest } from "@/schemas/github-issue";
 
 import { usePageInfoWithHelmet } from "./usePageInfoWithHelmet";
 
@@ -12,7 +12,7 @@ export const useCreateGithubIssue = () => {
   const { user, repo } = usePageInfoWithHelmet();
 
   return useMutation({
-    mutationFn: async (request: GitHubChangeIssueRequest) => {
+    mutationFn: async (request: GitHubCreateIssueRequest) => {
       const res = await postGithubIssue(request);
       if (res.status === "error") {
         throw new Error(res.error);
