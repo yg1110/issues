@@ -1,5 +1,7 @@
 import { GitHubComment } from "../../../../../schemas/github-comment";
 import { GitHubIssue } from "../../../../../schemas/github-issue";
+import { usePageInfoWithHelmet } from "../../../../../shared/hooks/usePageInfo";
+import { useWriteGithubComment } from "../hooks/use-write-github-comment";
 import { CommentComposer } from "./CommentComposer";
 import IssueBody from "./IssueBody";
 import IssueSideBar from "./IssueSideBar";
@@ -11,11 +13,21 @@ type Props = {
 };
 
 export default function IssueDetail({ issue, comments }: Props) {
+  const { user, repo } = usePageInfoWithHelmet();
+  const { mutate: writeGithubComment } = useWriteGithubComment();
+
+  const writeCommand = (comment: string) => {
+    writeGithubComment({
+      owner: user,
+      repo: repo,
+      issueNumber: issue?.number || 0,
+      token: import.meta.env.VITE_GITHUB_TOKEN,
+      body: comment,
+    });
+  };
+
   if (!issue) return;
   if (!comments) return;
-  const writeCommand = (comment: string) => {
-    console.log(comment);
-  };
   return (
     <div className="max-w-6xl mx-auto px-4 pt-2">
       <IssueTitle title={issue.title} />

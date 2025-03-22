@@ -11,7 +11,7 @@ export const useGithubIssue = (request: GitHubIssueRequest) => {
       const res = await getGithubIssue(request);
       if (res.status === "error") {
         toast(res.error, {
-          duration: 700,
+          duration: 2000,
           position: "bottom-center",
         });
         throw new Error(res.error);

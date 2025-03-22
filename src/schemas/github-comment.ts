@@ -5,6 +5,7 @@ export interface GitHubCommentRequest {
   repo: string;
   issueNumber: number;
   token?: string;
+  body?: string;
 }
 
 export interface GitHubComment {
