@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 
 import IssuesTabLabel from "@/shared/components/IssuesTabLabel";
 import TabList from "@/shared/components/TabList";
+import { useGithubAssignees } from "@/shared/hooks/useGithubAssignees";
 import { useGithubIssue } from "@/shared/hooks/useGithubIssue";
 import { useGithubUser } from "@/shared/hooks/useGithubUser";
 import { usePageInfoWithHelmet } from "@/shared/hooks/usePageInfoWithHelmet";
@@ -14,6 +15,10 @@ export default function IssuesEditPage() {
 
   const { data: issue } = useGithubIssue({
     id: id ? Number(id) : 0,
+    owner: user,
+    repo: repo,
+  });
+  const { data: assignees } = useGithubAssignees({
     owner: user,
     repo: repo,
   });
