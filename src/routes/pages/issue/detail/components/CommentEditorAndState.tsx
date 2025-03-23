@@ -38,7 +38,7 @@ export default function CommentEditorAndState({ issueNumber, state, avatarUrl, u
 
   return (
     <div className="flex gap-4 rounded-md bg-white">
-      <a href={`/${username}`} className="shrink-0">
+      <a href={`/${username}`} className="shrink-0 hidden md:block">
         <img src={avatarUrl} alt={username} className="w-10 h-10 rounded-full" />
       </a>
 

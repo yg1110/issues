@@ -94,7 +94,7 @@ export default function IssueSideBar({
 
   return (
     <div className="w-full md:w-[30%] order-1 md:order-2 flex flex-col gap-4 md:gap-0">
-      <div className="bg-white md:pb-4 md:mb-4 md:border-b md:border-[#d1d9e0b3] flex flex-row gap-2 md:flex-col items-center md:items-baseline">
+      <div className="bg-white md:pb-4 md:mb-4 md:border-b md:border-[#d1d9e0b3] flex flex-col gap-2 items-baseline">
         <AssigneesDropdown
           labels={formattedAssigneesLabels}
           selected={selectedAssignees}
@@ -120,7 +120,7 @@ export default function IssueSideBar({
         )}
       </div>
 
-      <div className="bg-white md:pb-4 md:mb-4 md:border-b md:border-[#d1d9e0b3] flex flex-row gap-2 md:flex-col items-center md:items-baseline">
+      <div className="bg-white md:pb-4 md:mb-4 md:border-b md:border-[#d1d9e0b3] flex flex-col gap-2 items-baseline">
         <MileStoneDropdown
           options={formattedMilestones}
           selected={selectedMilestone}
@@ -141,7 +141,7 @@ export default function IssueSideBar({
         )}
       </div>
 
-      <div className="bg-white flex flex-row gap-2 md:flex-col items-center md:items-baseline">
+      <div className="bg-white flex flex-col gap-2 items-baseline">
         <LabelsDropdown labels={formattedLabels} selected={selectedLabel} onChange={handleUpdateLabels} />
         {currentLabels.length > 0 ? (
           <div className="flex flex-wrap gap-2 items-center">
