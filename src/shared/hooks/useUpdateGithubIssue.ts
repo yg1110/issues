@@ -8,7 +8,11 @@ import { GitHubUpdateIssueRequest } from "@/schemas/github-issue";
 import { TOAST_DURATION, TOAST_POSITION } from "../utils/constants";
 import { usePageInfoWithHelmet } from "./usePageInfoWithHelmet";
 
-export const useUpdateGithubIssue = (issueNumber: number) => {
+interface Props {
+  issueNumber: number;
+  options?: { shouldRedirect?: boolean };
+}
+export const useUpdateGithubIssue = ({ issueNumber, options }: Props) => {
   const queryClient = getQueryClient();
   const { user, repo } = usePageInfoWithHelmet();
 
@@ -28,9 +32,11 @@ export const useUpdateGithubIssue = (issueNumber: number) => {
       queryClient.invalidateQueries({
         queryKey: ["githubIssue"],
       });
-      setTimeout(() => {
-        window.location.href = `${user}/${repo}/issues/${issueNumber}`;
-      }, TOAST_DURATION);
+      if (options?.shouldRedirect) {
+        setTimeout(() => {
+          window.location.href = `${user}/${repo}/issues/${issueNumber}`;
+        }, TOAST_DURATION);
+      }
     },
     onError: (error: Error) => {
       toast.error(error.message, {
