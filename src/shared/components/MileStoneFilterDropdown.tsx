@@ -22,6 +22,7 @@ export default function MileStoneFilterDropdown({ options, selected, onChange }:
           <TriangleDownIcon />
         </button>
       }
+      className="min-w-[200px]"
     >
       <SingleSelector title="Filter by milestone" options={options} selected={selected} onChange={onChange} />
     </Dropdown>

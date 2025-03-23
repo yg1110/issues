@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default function Dropdown({ trigger, children, className = "" }: Props) {
-  const { open, setOpen, triggerRef, dropdownRef } = useDropdown();
+  const { open, setOpen, triggerRef, dropdownRef, isOverflowingRight } = useDropdown();
 
   return (
     <div className="relative inline-block w-full">
@@ -18,7 +18,13 @@ export default function Dropdown({ trigger, children, className = "" }: Props) {
       </div>
 
       {open && (
-        <div ref={dropdownRef} className={`absolute z-10 mt-2 left-0 w-full ${className}`}>
+        <div
+          ref={dropdownRef}
+          className={`
+          absolute z-10 mt-2 ${isOverflowingRight ? "right-0" : "left-0"}
+          ${className}
+        `}
+        >
           {children}
         </div>
       )}

@@ -48,14 +48,17 @@ export default function IssuesStateFilter({ openCount, closedCount }: Props) {
   };
 
   return (
-    <div className="flex flex-col gap-2">
-      <ul className="flex items-center">
+    <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+      <ul className="flex gap-2 order-1 md:order-none">
         <li>
           <StateLabel count={openCount} state="open" selected={state === "open"} />
         </li>
         <li>
           <StateLabel count={closedCount} state="closed" selected={state === "closed"} />
         </li>
+      </ul>
+
+      <ul className="flex flex-wrap gap-2 order-2 md:order-none">
         <li>
           <AssigneesFilterDropdown
             labels={formattedAssigneesLabels || []}
