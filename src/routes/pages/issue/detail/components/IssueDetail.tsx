@@ -9,7 +9,7 @@ import IssueSideBar from "@/shared/components/IssueSideBar";
 import { useCreateGithubComment } from "@/shared/hooks/useCreateGithubComment";
 import { usePageInfoWithHelmet } from "@/shared/hooks/usePageInfoWithHelmet";
 
-import CommentEditor from "./CommentEditor";
+import CommentEditorAndState from "./CommentEditorAndState";
 import IssueBody from "./IssueBody";
 import IssueTitle from "./IssueTitle";
 
@@ -54,7 +54,13 @@ export default function IssueDetail({ issue, comments, assignees, labels, milest
         <div className="w-full md:w-[70%] order-2 md:order-1">
           <IssueBody {...issue} />
           {comments?.map((comment) => <IssueBody key={comment.id} {...comment} />)}
-          <CommentEditor avatarUrl={issue.user.avatar_url} username={issue.user.login} onSubmit={writeCommand} />
+          <CommentEditorAndState
+            issueNumber={issue.number}
+            state={issue.state}
+            avatarUrl={issue.user.avatar_url}
+            username={issue.user.login}
+            onSubmit={writeCommand}
+          />
         </div>
         <IssueSideBar
           issueNumber={issue.number}

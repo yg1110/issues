@@ -22,6 +22,7 @@ export interface GitHubCreateIssueRequest {
   assignees?: string[];
   milestone?: number | null;
   labels?: string[];
+  state?: "open" | "closed";
 }
 
 export interface GitHubUpdateIssueRequest extends GitHubCreateIssueRequest {
