@@ -80,3 +80,13 @@ export interface GitHubReactions {
   rocket: number;
   eyes: number;
 }
+
+export interface GithubIssueCountRequest {
+  owner: string;
+  repo: string;
+}
+
+export interface GithubIssueCount {
+  openCount: number;
+  closedCount: number;
+}

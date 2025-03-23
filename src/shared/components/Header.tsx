@@ -9,7 +9,7 @@ export default function Header() {
   const repoLink = `https://github.com/${user}/${repo}`;
   return (
     <header className="p-[1rem] flex items-center gap-[0.5rem] sticky top-0 bg-white z-1">
-      <a href={`${user}/${repo}/issues`}>
+      <a href={`/${user}/${repo}/issues?state=open`}>
         <GithubIcon />
       </a>
       <nav>

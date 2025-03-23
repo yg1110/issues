@@ -29,7 +29,7 @@ export const useCreateGithubIssue = () => {
         queryKey: ["githubIssues"],
       });
       setTimeout(() => {
-        window.location.href = `${user}/${repo}/issues`;
+        window.location.href = `${user}/${repo}/issues?state=open`;
       }, TOAST_DURATION);
     },
     onError: (error: Error) => {

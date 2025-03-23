@@ -28,7 +28,7 @@ const router = createBrowserRouter([
       },
       {
         path: "*",
-        loader: async () => redirect("/yg1110/issues/issues"),
+        loader: async () => redirect("/yg1110/issues/issues?state=open"),
       },
     ],
   },

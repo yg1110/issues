@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-import { GitHubIssue } from "@/schemas/github-issue";
+import { GitHubIssue, GithubIssueCount } from "@/schemas/github-issue";
 import Button from "@/shared/components/Button";
 import IssueState from "@/shared/components/IssueState";
 import ListView, { ListItem } from "@/shared/components/ListView";
 import { useInfoStore } from "@/store/info";
 
 import IssueDescription from "./IssueDescription";
+import IssuesStateFilter from "./IssuesStateFilter";
 
 type Props = {
+  issueCount?: GithubIssueCount;
   issues?: GitHubIssue[];
   fetchNextPage: () => void;
   hasNextPage?: boolean;
-  isLoading?: boolean;
 };
 
-export default function IssuesList({ issues, fetchNextPage, hasNextPage, isLoading }: Props) {
+export default function IssuesList({ issueCount, issues, fetchNextPage, hasNextPage }: Props) {
   const { user, repo } = useInfoStore();
   const [items, setItems] = useState<ListItem[]>([]);
 
@@ -46,10 +47,17 @@ export default function IssuesList({ issues, fetchNextPage, hasNextPage, isLoadi
         hasMore={!!hasNextPage}
         loader={<p className="text-center text-sm text-gray-500 py-4">Loading more...</p>}
       >
-        <ListView title="이슈 목록" items={items} />
+        <ListView
+          title={
+            issueCount ? (
+              <IssuesStateFilter openCount={issueCount.openCount} closedCount={issueCount.closedCount} />
+            ) : (
+              "이슈 목록"
+            )
+          }
+          items={items}
+        />
       </InfiniteScroll>
-
-      {isLoading && <p className="text-center text-sm text-gray-500 py-4">Loading more...</p>}
     </div>
   );
 }

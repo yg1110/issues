@@ -13,7 +13,7 @@ export interface ListItem {
 }
 
 type Props = {
-  title: string;
+  title: string | React.ReactNode;
   items: ListItem[];
 };
 
@@ -35,6 +35,7 @@ export default function ListView({ title, items }: Props) {
               <h3 className="font-semibold hover:underline hover:text-blue-600">
                 <a href={`/${user}/${repo}/issue/${item.id}`}>{item.title}</a>
               </h3>
+
               <div className="text-gray-500 text-sm">{item.description}</div>
               {item.labels && (
                 <div className="flex gap-1 mt-2">

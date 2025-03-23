@@ -82,7 +82,7 @@ export default function IssueCreate({ userInfo, assignees, labels, milestones }:
               <BodyEditor label="Add a description" required={true} value={body} onChange={handleBodyChange} />
               <div className="flex items-center justify-end">
                 <div className="flex gap-2">
-                  <a href={`/${user}/${repo}/issues`}>
+                  <a href={`/${user}/${repo}/issues?state=open`}>
                     <Button variant="outline">Cancel</Button>
                   </a>
                   <Button variant="secondary" disabled={!title || !body} onClick={handleSubmit}>
