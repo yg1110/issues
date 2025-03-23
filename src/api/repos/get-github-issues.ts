@@ -1,4 +1,5 @@
 import { GitHubIssue, GitHubIssuesRequest } from "@/schemas/github-issue";
+import { buildGithubIssuesQueryString } from "@/shared/utils";
 
 import { ApiResult } from "../api-result";
 
@@ -6,7 +7,9 @@ type Response = GitHubIssue[];
 type Request = GitHubIssuesRequest;
 export const getGithubIssues = async (request: Request): Promise<ApiResult<Response>> => {
   try {
-    const url = `https://api.github.com/repos/${request.owner}/${request.repo}/issues?page=${request.page}&per_page=${request.per_page}&state=${request.state}`;
+    const { owner, repo, ...rest } = request;
+    const queryParams = buildGithubIssuesQueryString(rest);
+    const url = `https://api.github.com/repos/${owner}/${repo}/issues?${queryParams}`;
 
     const response = await fetch(url, {
       headers: {
