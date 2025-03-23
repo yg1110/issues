@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import AssigneesFilterDropdown from "@/shared/components/assigneesFilterDropdown";
 import LabelsFilterDropdown from "@/shared/components/LabelsFilterDropdown";
 import MileStoneFilterDropdown from "@/shared/components/MileStoneFilterDropdown";
+import SearchInput from "@/shared/components/SearchInput";
 import { useGitHubMetaStore } from "@/store/githubMeta";
 import { useIssueFilterStore } from "@/store/issueFilterStore";
 
@@ -16,6 +17,7 @@ type Props = {
 export default function IssuesStateFilter({ openCount, closedCount }: Props) {
   const [searchParams] = useSearchParams();
   const state = searchParams.get("state") ?? "open";
+
   const {
     selectedAssignees,
     setSelectedAssignees,
@@ -23,6 +25,8 @@ export default function IssuesStateFilter({ openCount, closedCount }: Props) {
     setSelectedMilestone,
     selectedLabel,
     setSelectedLabel,
+    keyword,
+    setKeyword,
   } = useIssueFilterStore();
 
   const { assignees, labels, milestones } = useGitHubMetaStore();
@@ -53,7 +57,11 @@ export default function IssuesStateFilter({ openCount, closedCount }: Props) {
 
   return (
     <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-      <ul className="flex gap-2 order-1 md:order-none">
+      <div className="order-1 md:order-2">
+        <SearchInput value={keyword} onChange={setKeyword} />
+      </div>
+
+      <ul className="flex gap-2 order-2 md:order-1">
         <li>
           <StateLabel count={openCount} state="open" selected={state === "open"} />
         </li>
@@ -62,23 +70,23 @@ export default function IssuesStateFilter({ openCount, closedCount }: Props) {
         </li>
       </ul>
 
-      <ul className="flex flex-wrap gap-2 order-2 md:order-none">
+      <ul className="flex flex-wrap gap-2 order-3">
         <li>
           <AssigneesFilterDropdown
-            options={formattedAssignees || []}
+            options={formattedAssignees}
             selected={selectedAssignees}
             onChange={handleUpdateAssignees}
           />
         </li>
         <li>
           <MileStoneFilterDropdown
-            options={formattedMilestones || []}
+            options={formattedMilestones}
             selected={selectedMilestone}
             onChange={setSelectedMilestone}
           />
         </li>
         <li>
-          <LabelsFilterDropdown labels={formattedLabels || []} selected={selectedLabel} onChange={handleUpdateLabels} />
+          <LabelsFilterDropdown labels={formattedLabels} selected={selectedLabel} onChange={handleUpdateLabels} />
         </li>
       </ul>
     </div>

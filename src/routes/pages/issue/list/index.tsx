@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 
 import IssuesTabLabel from "@/shared/components/IssuesTabLabel";
 import TabList from "@/shared/components/TabList";
+import { useDebounce } from "@/shared/hooks/useDebounce";
 import { useGithubAssignees } from "@/shared/hooks/useGithubAssignees";
 import { useGithubIssueCount } from "@/shared/hooks/useGithubIssueCounts";
 import { useGithubLabels } from "@/shared/hooks/useGithubLabels";
@@ -20,7 +21,9 @@ export default function IssuesPage() {
 
   const { user, repo, HelmetTitle } = usePageInfoWithHelmet();
   const { setAssignees, setLabels, setMilestones } = useGitHubMetaStore();
-  const { selectedAssignees, selectedMilestone, selectedLabel } = useIssueFilterStore();
+  const { selectedAssignees, selectedMilestone, selectedLabel, keyword } = useIssueFilterStore();
+
+  const debouncedKeyword = useDebounce(keyword, 300);
 
   const { data: issueCount } = useGithubIssueCount({
     owner: user,
@@ -35,6 +38,7 @@ export default function IssuesPage() {
     assignee: selectedAssignees,
     milestone: selectedMilestone,
     labels: selectedLabel,
+    keyword: debouncedKeyword,
   });
   const { data: assignees } = useGithubAssignees({
     owner: user,

@@ -11,6 +11,7 @@ export interface GitHubIssuesRequest {
   assignee?: string | null;
   milestone?: number | null;
   labels?: string[];
+  keyword?: string;
 }
 
 export interface GitHubIssueRequest {
