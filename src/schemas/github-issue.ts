@@ -7,6 +7,7 @@ export interface GitHubIssuesRequest {
   repo: string;
   page: number;
   per_page: number;
+  state?: "open" | "closed";
 }
 
 export interface GitHubIssueRequest {

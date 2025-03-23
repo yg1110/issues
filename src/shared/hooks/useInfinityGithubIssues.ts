@@ -25,5 +25,6 @@ export const useInfinityGithubIssues = (request: GitHubIssuesRequest) => {
     },
     getNextPageParam: (lastPage) => lastPage.nextPage,
     initialPageParam: 1,
+    enabled: request.state === "open" || request.state === "closed",
   });
 };
