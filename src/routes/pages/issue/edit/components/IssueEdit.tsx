@@ -21,7 +21,9 @@ interface Props {
 }
 export default function IssueEdit({ issue, userInfo, assignees, labels, milestones }: Props) {
   const { user, repo } = usePageInfoWithHelmet();
-  const { mutate: updateGithubIssue } = useUpdateGithubIssue(issue?.number || 0);
+  const { mutate: updateGithubIssue } = useUpdateGithubIssue({
+    issueNumber: issue?.number || 0,
+  });
 
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");

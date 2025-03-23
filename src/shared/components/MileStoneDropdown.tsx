@@ -5,8 +5,8 @@ import SingleSelector, { Option } from "./SingleSelector";
 
 type Props = {
   options: Option[];
-  selected: string | null;
-  onChange: (selectedId: string | null) => void;
+  selected: number | null;
+  onChange: (selectedId: number | null) => void;
 };
 
 export default function MileStoneDropdown({ options, selected, onChange }: Props) {

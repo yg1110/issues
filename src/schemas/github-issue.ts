@@ -20,6 +20,7 @@ export interface GitHubCreateIssueRequest {
   title?: string;
   body?: string;
   assignees?: string[];
+  milestone?: number | null;
 }
 
 export interface GitHubUpdateIssueRequest extends GitHubCreateIssueRequest {

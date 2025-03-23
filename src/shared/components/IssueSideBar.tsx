@@ -34,10 +34,13 @@ export default function IssueSideBar({
   const { user, repo } = usePageInfoWithHelmet();
 
   const [selectedAssignees, setSelectedAssignees] = useState<string[]>([]);
-  const [selectedMilestone, setSelectedMilestone] = useState<string | null>(null);
+  const [selectedMilestone, setSelectedMilestone] = useState<number | null>(null);
   const [selectedLabel, setSelectedLabel] = useState<string[]>([]);
 
-  const { mutate: updateGithubIssue } = useUpdateGithubIssue(issueNumber || 0);
+  const { mutate: updateGithubIssue } = useUpdateGithubIssue({
+    issueNumber: issueNumber || 0,
+    options: { shouldRedirect: false },
+  });
   const { mutate: updateGithubLabels } = useUpdateGithubLabels();
 
   const handleUpdateAssignees = (assignees: string[]) => {
@@ -48,6 +51,17 @@ export default function IssueSideBar({
       owner: user,
       repo: repo,
       assignees: assignees,
+    });
+  };
+
+  const handleUpdateMilestone = (milestone: number | null) => {
+    setSelectedMilestone(milestone);
+    if (!issueNumber || !milestone) return;
+    updateGithubIssue({
+      id: issueNumber,
+      owner: user,
+      repo: repo,
+      milestone: milestone,
     });
   };
 
@@ -64,12 +78,12 @@ export default function IssueSideBar({
 
   useEffect(() => {
     setSelectedAssignees(currentAssignees.map((assignee) => assignee.login));
-    setSelectedMilestone(currentMilestone ? currentMilestone.id.toString() : null);
+    setSelectedMilestone(currentMilestone ? currentMilestone.number : null);
     setSelectedLabel(currentLabels.map((label) => label.name.toString()));
   }, [currentAssignees, currentMilestone, currentLabels]);
 
   const formattedAssigneesLabels = assignees.map((assignee) => ({
-    id: assignee.id.toString(),
+    id: assignee.login,
     name: assignee.login,
   }));
   const formattedLabels = labels.map((label) => ({
@@ -77,11 +91,10 @@ export default function IssueSideBar({
     name: label.name,
   }));
   const formattedMilestones = milestones.map((milestone) => ({
-    id: milestone.id.toString(),
+    id: milestone.number,
     name: milestone.title,
   }));
 
-  console.log("selectedAssignees :>> ", selectedAssignees);
   return (
     <div className="w-full md:w-[30%] order-1 md:order-2 flex flex-col gap-4 md:gap-0">
       <div className="bg-white md:pb-4 md:mb-4 md:border-b md:border-[#d1d9e0b3] flex flex-row gap-2 md:flex-col items-center md:items-baseline">
@@ -111,7 +124,11 @@ export default function IssueSideBar({
       </div>
 
       <div className="bg-white md:pb-4 md:mb-4 md:border-b md:border-[#d1d9e0b3] flex flex-row gap-2 md:flex-col items-center md:items-baseline">
-        <MileStoneDropdown options={formattedMilestones} selected={selectedMilestone} onChange={setSelectedMilestone} />
+        <MileStoneDropdown
+          options={formattedMilestones}
+          selected={selectedMilestone}
+          onChange={handleUpdateMilestone}
+        />
         {currentMilestone ? (
           <a
             href={currentMilestone.html_url}

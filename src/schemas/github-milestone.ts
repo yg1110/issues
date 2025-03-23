@@ -6,8 +6,7 @@ export interface GitHubMilestonesRequest {
 }
 
 export interface GitHubUpdateMilestoneRequest extends GitHubMilestonesRequest {
-  token: string;
-  issueNumber: number;
+  milestoneNumber: number;
   milestone: string;
 }
 

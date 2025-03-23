@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export type Option = {
-  id: string;
+  id: number;
   name: string;
   description?: string;
 };
@@ -9,10 +9,10 @@ export type Option = {
 type Props = {
   title?: string;
   options: Option[];
-  selected: string | null;
+  selected: number | null;
   placeholder?: string;
   footer?: React.ReactNode;
-  onChange: (selectedId: string | null) => void;
+  onChange: (selectedId: number | null) => void;
 };
 
 export default function SingleSelector({
@@ -25,7 +25,7 @@ export default function SingleSelector({
 }: Props) {
   const [filter, setFilter] = useState("");
 
-  const handleClick = (id: string) => {
+  const handleClick = (id: number) => {
     if (selected === id) {
       onChange(null);
     } else {
