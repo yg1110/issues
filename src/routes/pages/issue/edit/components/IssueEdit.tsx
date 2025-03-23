@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { GitHubIssue } from "@/schemas/github-issue";
-import { GitHubLabel } from "@/schemas/github-label";
-import { GitHubMilestone } from "@/schemas/github-milestone";
-import { GitHubSimpleUser, GitHubUser } from "@/schemas/github-user";
+import { GitHubUser } from "@/schemas/github-user";
 import BodyEditor from "@/shared/components/BodyEditor";
 import Button from "@/shared/components/Button";
 import IssueSideBar from "@/shared/components/IssueSideBar";
@@ -11,16 +9,15 @@ import IssueTitle from "@/shared/components/IssueTitle";
 import UserProfile from "@/shared/components/UserProfile";
 import { usePageInfoWithHelmet } from "@/shared/hooks/usePageInfoWithHelmet";
 import { useUpdateGithubIssue } from "@/shared/hooks/useUpdateGithubIssue";
+import { useGitHubMetaStore } from "@/store/githubMeta";
 
 interface Props {
   issue?: GitHubIssue;
   userInfo?: GitHubUser;
-  assignees?: GitHubSimpleUser[];
-  labels?: GitHubLabel[];
-  milestones?: GitHubMilestone[];
 }
-export default function IssueEdit({ issue, userInfo, assignees, labels, milestones }: Props) {
+export default function IssueEdit({ issue, userInfo }: Props) {
   const { user, repo } = usePageInfoWithHelmet();
+  const { assignees, labels, milestones } = useGitHubMetaStore();
 
   const [selectedAssignees, setSelectedAssignees] = useState<string[]>([]);
   const [selectedMilestone, setSelectedMilestone] = useState<number | null>(null);

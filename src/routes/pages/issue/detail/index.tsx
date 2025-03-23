@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import IssuesTabLabel from "@/shared/components/IssuesTabLabel";
@@ -8,12 +9,14 @@ import { useGithubIssue } from "@/shared/hooks/useGithubIssue";
 import { useGithubLabels } from "@/shared/hooks/useGithubLabels";
 import { useGithubMilestones } from "@/shared/hooks/useGithubMilestons";
 import { usePageInfoWithHelmet } from "@/shared/hooks/usePageInfoWithHelmet";
+import { useGitHubMetaStore } from "@/store/githubMeta";
 
 import IssueDetail from "./components/IssueDetail";
 
 export default function IssuesDetailPage() {
   const { id } = useParams<{ id: string }>();
   const { user, repo, HelmetTitle } = usePageInfoWithHelmet();
+  const { setAssignees, setLabels, setMilestones } = useGitHubMetaStore();
 
   const { data: issue } = useGithubIssue({
     id: id ? Number(id) : 0,
@@ -41,11 +44,15 @@ export default function IssuesDetailPage() {
   const tabs = [
     {
       label: <IssuesTabLabel />,
-      contents: (
-        <IssueDetail issue={issue} comments={comments} assignees={assignees} labels={labels} milestones={milestones} />
-      ),
+      contents: <IssueDetail issue={issue} comments={comments} />,
     },
   ];
+
+  useEffect(() => {
+    if (assignees) setAssignees(assignees);
+    if (labels) setLabels(labels);
+    if (milestones) setMilestones(milestones);
+  }, [assignees, labels, milestones]);
 
   return (
     <div>

@@ -10,15 +10,14 @@ import IssueTitle from "@/shared/components/IssueTitle";
 import UserProfile from "@/shared/components/UserProfile";
 import { useCreateGithubIssue } from "@/shared/hooks/useCreateGithubIssue";
 import { usePageInfoWithHelmet } from "@/shared/hooks/usePageInfoWithHelmet";
+import { useGitHubMetaStore } from "@/store/githubMeta";
 
 interface Props {
   userInfo?: GitHubUser;
-  assignees?: GitHubSimpleUser[];
-  labels?: GitHubLabel[];
-  milestones?: GitHubMilestone[];
 }
-export default function IssueCreate({ userInfo, assignees, labels, milestones }: Props) {
+export default function IssueCreate({ userInfo }: Props) {
   const { user, repo } = usePageInfoWithHelmet();
+  const { assignees, labels, milestones } = useGitHubMetaStore();
 
   // 사이드바에서 선택된 정보를 저장하는 state
   const [currentAssignees, setCurrentAssignees] = useState<GitHubSimpleUser[]>([]);
