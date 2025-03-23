@@ -1,10 +1,10 @@
-import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import AssigneesFilterDropdown from "@/shared/components/assigneesFilterDropdown";
 import LabelsFilterDropdown from "@/shared/components/LabelsFilterDropdown";
 import MileStoneFilterDropdown from "@/shared/components/MileStoneFilterDropdown";
 import { useGitHubMetaStore } from "@/store/githubMeta";
+import { useIssueFilterStore } from "@/store/issueFilterStore";
 
 import StateLabel from "./StateLabel";
 
@@ -16,16 +16,20 @@ type Props = {
 export default function IssuesStateFilter({ openCount, closedCount }: Props) {
   const [searchParams] = useSearchParams();
   const state = searchParams.get("state") ?? "open";
-
-  const [selectedAssignees, setSelectedAssignees] = useState<string[]>([]);
-  const [selectedMilestone, setSelectedMilestone] = useState<number | null>(null);
-  const [selectedLabel, setSelectedLabel] = useState<string[]>([]);
+  const {
+    selectedAssignees,
+    setSelectedAssignees,
+    selectedMilestone,
+    setSelectedMilestone,
+    selectedLabel,
+    setSelectedLabel,
+  } = useIssueFilterStore();
 
   const { assignees, labels, milestones } = useGitHubMetaStore();
 
-  const formattedAssigneesLabels =
+  const formattedAssignees =
     assignees?.map((assignee) => ({
-      id: assignee.login,
+      id: assignee.id,
       name: assignee.login,
     })) || [];
   const formattedLabels =
@@ -43,7 +47,7 @@ export default function IssuesStateFilter({ openCount, closedCount }: Props) {
     setSelectedLabel(labels);
   };
 
-  const handleUpdateAssignees = (assignees: string[]) => {
+  const handleUpdateAssignees = (assignees: string | null) => {
     setSelectedAssignees(assignees);
   };
 
@@ -61,7 +65,7 @@ export default function IssuesStateFilter({ openCount, closedCount }: Props) {
       <ul className="flex flex-wrap gap-2 order-2 md:order-none">
         <li>
           <AssigneesFilterDropdown
-            labels={formattedAssigneesLabels || []}
+            options={formattedAssignees || []}
             selected={selectedAssignees}
             onChange={handleUpdateAssignees}
           />

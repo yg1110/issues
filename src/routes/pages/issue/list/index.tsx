@@ -10,6 +10,7 @@ import { useGithubMilestones } from "@/shared/hooks/useGithubMilestons";
 import { useInfinityGithubIssues } from "@/shared/hooks/useInfinityGithubIssues";
 import { usePageInfoWithHelmet } from "@/shared/hooks/usePageInfoWithHelmet";
 import { useGitHubMetaStore } from "@/store/githubMeta";
+import { useIssueFilterStore } from "@/store/issueFilterStore";
 
 import IssuesList from "./components/IssuesList";
 
@@ -19,6 +20,7 @@ export default function IssuesPage() {
 
   const { user, repo, HelmetTitle } = usePageInfoWithHelmet();
   const { setAssignees, setLabels, setMilestones } = useGitHubMetaStore();
+  const { selectedAssignees, selectedMilestone, selectedLabel } = useIssueFilterStore();
 
   const { data: issueCount } = useGithubIssueCount({
     owner: user,
@@ -30,6 +32,9 @@ export default function IssuesPage() {
     page: 1,
     per_page: 20,
     state: stateParam as "open" | "closed",
+    assignee: selectedAssignees,
+    milestone: selectedMilestone,
+    labels: selectedLabel,
   });
   const { data: assignees } = useGithubAssignees({
     owner: user,

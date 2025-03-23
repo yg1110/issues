@@ -1,15 +1,15 @@
 import Dropdown from "@/shared/components/Dropdown";
 
 import TriangleDownIcon from "../icons/TriangleDownIcon";
-import MultiSelector, { Label } from "./MultiSelector";
+import SingleSelectorWithName, { Option } from "./SingleSelectorWithName";
 
 type Props = {
-  labels: Label[];
-  selected: string[];
-  onChange: (selected: string[]) => void;
+  options: Option[];
+  selected: string | null;
+  onChange: (selected: string | null) => void;
 };
 
-export default function AssigneesFilterDropdown({ labels, selected, onChange }: Props) {
+export default function AssigneesFilterDropdown({ options, selected, onChange }: Props) {
   return (
     <Dropdown
       trigger={
@@ -18,18 +18,17 @@ export default function AssigneesFilterDropdown({ labels, selected, onChange }: 
           tabIndex={0}
           className="flex items-center gap-1 text-sm text-gray-600 hover:text-foreground focus:outline-none focus:ring-2 focus:ring-ring rounded-md px-3 py-1 transition hover:bg-gray-200"
         >
-          <span>Author</span>
+          <span>Assignees</span>
           <TriangleDownIcon />
         </button>
       }
       className="min-w-[200px]"
     >
-      <MultiSelector
-        title="Filter by assignees"
-        placeholder="Filter assignees"
-        labels={labels}
+      <SingleSelectorWithName
+        options={options}
         selected={selected}
         onChange={onChange}
+        placeholder="Filter by assignees"
       />
     </Dropdown>
   );

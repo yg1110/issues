@@ -8,6 +8,9 @@ export interface GitHubIssuesRequest {
   page: number;
   per_page: number;
   state?: "open" | "closed";
+  assignee?: string | null;
+  milestone?: number | null;
+  labels?: string[];
 }
 
 export interface GitHubIssueRequest {

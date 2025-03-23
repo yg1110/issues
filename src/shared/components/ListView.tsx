@@ -21,7 +21,7 @@ export default function ListView({ title, items }: Props) {
   const { user, repo } = useInfoStore();
   const hasItems = items.length > 0;
   return (
-    <div className="bg-white border border-gray-300 rounded-md">
+    <div className="bg-white border border-gray-300 rounded-md min-h-[60vh]">
       <div className="px-4 py-3 border-b border-gray-300 font-semibold text-gray-800 bg-[#f6f8fa]">{title}</div>
 
       {hasItems ? (
