@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import { GitHubLabel } from "@/schemas/github-label";
 import { GitHubMilestone } from "@/schemas/github-milestone";
 import { GitHubSimpleUser } from "@/schemas/github-user";
@@ -21,6 +19,9 @@ interface Props {
   assignees: GitHubSimpleUser[];
   milestones: GitHubMilestone[];
   labels: GitHubLabel[];
+  selectedAssigneesState: [string[], React.Dispatch<React.SetStateAction<string[]>>];
+  selectedMilestoneState: [number | null, React.Dispatch<React.SetStateAction<number | null>>];
+  selectedLabelState: [string[], React.Dispatch<React.SetStateAction<string[]>>];
 }
 export default function IssueSideBar({
   issueNumber,
@@ -30,12 +31,27 @@ export default function IssueSideBar({
   assignees,
   milestones,
   labels,
+  selectedAssigneesState,
+  selectedMilestoneState,
+  selectedLabelState,
 }: Props) {
   const { user, repo } = usePageInfoWithHelmet();
+  const [selectedAssignees, setSelectedAssignees] = selectedAssigneesState;
+  const [selectedMilestone, setSelectedMilestone] = selectedMilestoneState;
+  const [selectedLabel, setSelectedLabel] = selectedLabelState;
 
-  const [selectedAssignees, setSelectedAssignees] = useState<string[]>([]);
-  const [selectedMilestone, setSelectedMilestone] = useState<number | null>(null);
-  const [selectedLabel, setSelectedLabel] = useState<string[]>([]);
+  const formattedAssigneesLabels = assignees.map((assignee) => ({
+    id: assignee.login,
+    name: assignee.login,
+  }));
+  const formattedLabels = labels.map((label) => ({
+    id: label.id.toString(),
+    name: label.name,
+  }));
+  const formattedMilestones = milestones.map((milestone) => ({
+    id: milestone.number,
+    name: milestone.title,
+  }));
 
   const { mutate: updateGithubIssue } = useUpdateGithubIssue({
     issueNumber: issueNumber || 0,
@@ -75,25 +91,6 @@ export default function IssueSideBar({
       labels: labels,
     });
   };
-
-  useEffect(() => {
-    setSelectedAssignees(currentAssignees.map((assignee) => assignee.login));
-    setSelectedMilestone(currentMilestone ? currentMilestone.number : null);
-    setSelectedLabel(currentLabels.map((label) => label.name.toString()));
-  }, [currentAssignees, currentMilestone, currentLabels]);
-
-  const formattedAssigneesLabels = assignees.map((assignee) => ({
-    id: assignee.login,
-    name: assignee.login,
-  }));
-  const formattedLabels = labels.map((label) => ({
-    id: label.id.toString(),
-    name: label.name,
-  }));
-  const formattedMilestones = milestones.map((milestone) => ({
-    id: milestone.number,
-    name: milestone.title,
-  }));
 
   return (
     <div className="w-full md:w-[30%] order-1 md:order-2 flex flex-col gap-4 md:gap-0">

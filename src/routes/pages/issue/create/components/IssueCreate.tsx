@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { GitHubLabel } from "@/schemas/github-label";
 import { GitHubMilestone } from "@/schemas/github-milestone";
@@ -19,10 +19,20 @@ interface Props {
 }
 export default function IssueCreate({ userInfo, assignees, labels, milestones }: Props) {
   const { user, repo } = usePageInfoWithHelmet();
-  const { mutate: createGithubIssue } = useCreateGithubIssue();
 
+  // 사이드바에서 선택된 정보를 저장하는 state
+  const [currentAssignees, setCurrentAssignees] = useState<GitHubSimpleUser[]>([]);
+  const [currentMilestone, setCurrentMilestone] = useState<GitHubMilestone | null>(null);
+  const [currentLabels, setCurrentLabels] = useState<GitHubLabel[]>([]);
+
+  // 직접 api에 보낼 정보를 저장하는 state
+  const [selectedAssignees, setSelectedAssignees] = useState<string[]>([]);
+  const [selectedMilestone, setSelectedMilestone] = useState<number | null>(null);
+  const [selectedLabel, setSelectedLabel] = useState<string[]>([]);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+
+  const { mutate: createGithubIssue } = useCreateGithubIssue();
 
   const handleTitleChange = (value: string) => {
     setTitle(value);
@@ -39,8 +49,26 @@ export default function IssueCreate({ userInfo, assignees, labels, milestones }:
       repo: repo,
       body: body,
       title: title,
+      assignees: selectedAssignees,
+      milestone: selectedMilestone,
+      labels: selectedLabel,
     });
   };
+
+  useEffect(() => {
+    const currentAssignees = assignees?.filter((assignee) => selectedAssignees.includes(assignee.login)) || [];
+    setCurrentAssignees(currentAssignees);
+  }, [selectedAssignees]);
+
+  useEffect(() => {
+    const currentMilestone = milestones?.find((milestone) => milestone.number === selectedMilestone) || null;
+    setCurrentMilestone(currentMilestone);
+  }, [selectedMilestone]);
+
+  useEffect(() => {
+    const currentLabels = labels?.filter((label) => selectedLabel.includes(label.name)) || [];
+    setCurrentLabels(currentLabels);
+  }, [selectedLabel]);
 
   if (!userInfo) return;
   return (
@@ -66,12 +94,15 @@ export default function IssueCreate({ userInfo, assignees, labels, milestones }:
           </div>
         </div>
         <IssueSideBar
-          currentAssignees={[]}
-          currentMilestone={null}
-          currentLabels={[]}
+          currentAssignees={currentAssignees}
+          currentMilestone={currentMilestone}
+          currentLabels={currentLabels}
           assignees={assignees || []}
           milestones={milestones || []}
           labels={labels || []}
+          selectedAssigneesState={[selectedAssignees, setSelectedAssignees]}
+          selectedMilestoneState={[selectedMilestone, setSelectedMilestone]}
+          selectedLabelState={[selectedLabel, setSelectedLabel]}
         />
       </div>
     </div>

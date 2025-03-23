@@ -21,12 +21,16 @@ interface Props {
 }
 export default function IssueEdit({ issue, userInfo, assignees, labels, milestones }: Props) {
   const { user, repo } = usePageInfoWithHelmet();
+
+  const [selectedAssignees, setSelectedAssignees] = useState<string[]>([]);
+  const [selectedMilestone, setSelectedMilestone] = useState<number | null>(null);
+  const [selectedLabel, setSelectedLabel] = useState<string[]>([]);
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+
   const { mutate: updateGithubIssue } = useUpdateGithubIssue({
     issueNumber: issue?.number || 0,
   });
-
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
 
   const handleTitleChange = (value: string) => {
     setTitle(value);
@@ -51,6 +55,9 @@ export default function IssueEdit({ issue, userInfo, assignees, labels, mileston
     if (!issue) return;
     setTitle(issue.title);
     setBody(issue.body || "");
+    setSelectedAssignees(issue.assignees?.map((assignee) => assignee.login) || []);
+    setSelectedMilestone(issue.milestone ? issue.milestone.number : null);
+    setSelectedLabel(issue.labels?.map((label) => label.name.toString()) || []);
   }, [issue]);
 
   if (!userInfo || !issue) return;
@@ -77,12 +84,16 @@ export default function IssueEdit({ issue, userInfo, assignees, labels, mileston
           </div>
         </div>
         <IssueSideBar
+          issueNumber={issue.number}
           currentAssignees={issue.assignees}
           currentMilestone={issue.milestone}
           currentLabels={issue.labels}
           assignees={assignees || []}
           milestones={milestones || []}
           labels={labels || []}
+          selectedAssigneesState={[selectedAssignees, setSelectedAssignees]}
+          selectedMilestoneState={[selectedMilestone, setSelectedMilestone]}
+          selectedLabelState={[selectedLabel, setSelectedLabel]}
         />
       </div>
     </div>

@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import { GitHubComment } from "@/schemas/github-comment";
 import { GitHubIssue } from "@/schemas/github-issue";
 import { GitHubLabel } from "@/schemas/github-label";
@@ -23,6 +25,10 @@ export default function IssueDetail({ issue, comments, assignees, labels, milest
   const { user, repo } = usePageInfoWithHelmet();
   const { mutate: createGithubComment } = useCreateGithubComment();
 
+  const [selectedAssignees, setSelectedAssignees] = useState<string[]>([]);
+  const [selectedMilestone, setSelectedMilestone] = useState<number | null>(null);
+  const [selectedLabel, setSelectedLabel] = useState<string[]>([]);
+
   const writeCommand = (comment: string) => {
     createGithubComment({
       owner: user,
@@ -31,6 +37,13 @@ export default function IssueDetail({ issue, comments, assignees, labels, milest
       body: comment,
     });
   };
+
+  useEffect(() => {
+    if (!issue) return;
+    setSelectedAssignees(issue.assignees?.map((assignee) => assignee.login) || []);
+    setSelectedMilestone(issue.milestone ? issue.milestone.number : null);
+    setSelectedLabel(issue.labels?.map((label) => label.name.toString()) || []);
+  }, [issue]);
 
   if (!issue) return;
   if (!comments) return;
@@ -51,6 +64,9 @@ export default function IssueDetail({ issue, comments, assignees, labels, milest
           assignees={assignees || []}
           milestones={milestones || []}
           labels={labels || []}
+          selectedAssigneesState={[selectedAssignees, setSelectedAssignees]}
+          selectedMilestoneState={[selectedMilestone, setSelectedMilestone]}
+          selectedLabelState={[selectedLabel, setSelectedLabel]}
         />
       </div>
     </div>
