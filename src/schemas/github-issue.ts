@@ -6,6 +6,7 @@ export interface GitHubIssuesRequest {
   owner: string;
   repo: string;
   page: number;
+  per_page: number;
 }
 
 export interface GitHubIssueRequest {

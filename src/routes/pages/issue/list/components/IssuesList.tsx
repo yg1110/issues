@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import { GitHubIssue } from "@/schemas/github-issue";
 import Button from "@/shared/components/Button";
@@ -10,9 +11,12 @@ import IssueDescription from "./IssueDescription";
 
 type Props = {
   issues?: GitHubIssue[];
+  fetchNextPage: () => void;
+  hasNextPage?: boolean;
+  isLoading?: boolean;
 };
 
-export default function IssuesList({ issues }: Props) {
+export default function IssuesList({ issues, fetchNextPage, hasNextPage, isLoading }: Props) {
   const { user, repo } = useInfoStore();
   const [items, setItems] = useState<ListItem[]>([]);
 
@@ -36,7 +40,16 @@ export default function IssuesList({ issues }: Props) {
           <Button>New issue</Button>
         </a>
       </div>
-      <ListView title="이슈 목록" items={items} />
+      <InfiniteScroll
+        dataLength={items.length}
+        next={fetchNextPage}
+        hasMore={!!hasNextPage}
+        loader={<p className="text-center text-sm text-gray-500 py-4">Loading more...</p>}
+      >
+        <ListView title="이슈 목록" items={items} />
+      </InfiniteScroll>
+
+      {isLoading && <p className="text-center text-sm text-gray-500 py-4">Loading more...</p>}
     </div>
   );
 }

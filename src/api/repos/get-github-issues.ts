@@ -6,7 +6,7 @@ type Response = GitHubIssue[];
 type Request = GitHubIssuesRequest;
 export const getGithubIssues = async (request: Request): Promise<ApiResult<Response>> => {
   try {
-    const url = `https://api.github.com/repos/${request.owner}/${request.repo}/issues?page=${request.page}`;
+    const url = `https://api.github.com/repos/${request.owner}/${request.repo}/issues?page=${request.page}&per_page=${request.per_page}`;
 
     const response = await fetch(url, {
       headers: {
