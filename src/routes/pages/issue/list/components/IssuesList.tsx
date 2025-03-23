@@ -30,6 +30,7 @@ export default function IssuesList({ issueCount, issues, fetchNextPage, hasNextP
       link: issue.html_url,
       icon: <IssueState state={issue.state} stateReason={issue.state_reason} />,
       labels: issue.labels,
+      assignee: issue.assignee,
     }));
     setItems(items);
   }, [issues]);
@@ -41,12 +42,7 @@ export default function IssuesList({ issueCount, issues, fetchNextPage, hasNextP
           <Button>New issue</Button>
         </a>
       </div>
-      <InfiniteScroll
-        dataLength={items.length}
-        next={fetchNextPage}
-        hasMore={!!hasNextPage}
-        loader={<p className="text-center text-sm text-gray-500 py-4">Loading more...</p>}
-      >
+      <InfiniteScroll dataLength={items.length} next={fetchNextPage} hasMore={!!hasNextPage} loader={null}>
         <ListView
           title={
             issueCount ? (

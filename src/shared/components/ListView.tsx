@@ -1,4 +1,5 @@
 import { GitHubLabel } from "@/schemas/github-label";
+import { GitHubSimpleUser } from "@/schemas/github-user";
 import { useInfoStore } from "@/store/info";
 
 import IssueLabel from "./IssueLabel";
@@ -10,6 +11,7 @@ export interface ListItem {
   link: string;
   labels?: GitHubLabel[];
   icon?: React.ReactNode;
+  assignee: GitHubSimpleUser | null;
 }
 
 type Props = {
@@ -28,23 +30,28 @@ export default function ListView({ title, items }: Props) {
         items.map((item, index) => (
           <div
             key={`${item.title}-${index}`}
-            className="flex items-start px-4 py-3 border-b border-gray-300 last:border-none hover:bg-gray-100 transition"
+            className="flex justify-between items-center border-b border-gray-300 last:border-none hover:bg-gray-100 transition"
           >
-            {item.icon}
-            <div className="ml-2">
-              <h3 className="font-semibold hover:underline hover:text-blue-600">
-                <a href={`/${user}/${repo}/issue/${item.id}`}>{item.title}</a>
-              </h3>
+            <div className="flex items-start px-4 py-3 ">
+              {item.icon}
+              <div className="ml-2">
+                <h3 className="font-semibold hover:underline hover:text-blue-600">
+                  <a href={`/${user}/${repo}/issue/${item.id}`}>{item.title}</a>
+                </h3>
 
-              <div className="text-gray-500 text-sm">{item.description}</div>
-              {item.labels && (
-                <div className="flex gap-1 mt-2">
-                  {item.labels.map((label) => (
-                    <IssueLabel key={label.id} text={label.name} color={`#${label.color}`} />
-                  ))}
-                </div>
-              )}
+                <div className="text-gray-500 text-sm">{item.description}</div>
+                {item.labels && (
+                  <div className="flex gap-1 mt-2">
+                    {item.labels.map((label) => (
+                      <IssueLabel key={label.id} text={label.name} color={`#${label.color}`} />
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
+            {item.assignee && (
+              <img src={item.assignee.avatar_url} alt={item.assignee.login} className="w-6 h-6 rounded-full mx-4" />
+            )}
           </div>
         ))
       ) : (
